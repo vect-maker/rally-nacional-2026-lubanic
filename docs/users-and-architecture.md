@@ -1,6 +1,6 @@
-# SITRACAFE: Definición de Usuarios, Expectativas y Clientes de Acceso
+# SITRACAFE: Definición de Usuarios, Arquitectura de Datos y Clientes de Acceso
 
-Este documento detalla los **actores clave** del ecosistema **SITRACAFE (Sistema Inteligente de Trazabilidad de Café Especial)**, qué espera cada uno de la plataforma y cuáles son los dispositivos ("clientes") que utilizan para conectarse al servidor centralizado.
+Este documento detalla los **actores clave** del ecosistema **SITRACAFE (Sistema Inteligente de Trazabilidad de Café Especial)**, el flujo de datos desde el campo hasta la nube mediante **Colector Local y Gateway**, y los dispositivos clientes de acceso.
 
 ---
 
@@ -23,121 +23,112 @@ En la caficultura nicaragüense conviven dos realidades muy distintas:
 
 ---
 
-## 1. Matriz General de Usuarios y Clientes
+## 1. Arquitectura del Flujo de Datos: Colector Local, Gateway y Nube
+
+En zonas rurales cafetaleras montañosas la conectividad es inestable, de baja velocidad o intermitente. **No es realista asumir transmisión continua en tiempo real hacia la nube**. Siempre existirá una latencia o retraso inherente entre la captura en finca y la consolidación en el servidor.
+
+El flujo de datos se estructura en 4 capas desacopladas:
+
+```
+[ Nodos Sensores ] ──(Red Local: BLE / Wi-Fi)──> [ Colector Local (Hub) ] ──> [ Gateway de Enlace ] ──(Store & Forward)──> [ Servidor Cloud (Azure) ]
+                                                            │
+                                                     (Visor Local)
+                                                            ▼
+                                                [ Smartphone / Pantalla Productor ]
+```
+
+### 1.1. Nodos Sensores en Campo (Sensor Nodes)
+* Módulos de hardware independientes basados en ESP32 ubicados en las pilas de fermentación, patios o secadoras solares.
+* Miden periódicamente variables críticas: pH, temperatura de masa, curvas de secado, humedad y peso.
+* Transmiten sus lecturas a través de la red local (Bluetooth BLE o Wi-Fi local) hacia el Colector de la finca.
+
+### 1.2. Colector Local de Datos (Local Collector / Edge Hub)
+* Dispositivo concentrador dedicado que opera dentro de la red local del beneficio o finca.
+* **Función principal:** Es el responsable de recibir, verificar la integridad de las tramas de los sensores y almacenar los datos localmente en memoria no volátil (Flash/MicroSD).
+* **Visor Local para el Productor:** El caficultor puede conectar su smartphone u ordenador a la red local del Colector para visualizar el estado de sus lotes (actuando únicamente como **visor de monitoreo local**, sin tener la responsabilidad de subir o gestionar el envío a la nube).
+
+### 1.3. Gateway de Enlace (Edge Gateway con Store & Forward)
+* Dispositivo o servicio encargado de la comunicación con el exterior.
+* Diseñado específicamente con tolerancia a fallas de enlace y latencia:
+  - Empaqueta y comprime las lecturas acumuladas en lotes (*batches*).
+  - Gestiona el protocolo **Store & Forward**: retiene los paquetes en cola local y los despacha de forma asíncrona conforme el enlace de datos (celular intermitente, enlace satelital o enlace rural) lo permita.
+  - Asegura que ningún registro se pierda ante caídas prolongadas de señal.
+
+### 1.4. Servidor Centralizado en la Nube (SITRACAFE Cloud - Azure VM)
+* Procesa los paquetes asíncronos recibidos desde los Gateways.
+* Mantiene la base de datos relacional con el historial completo de cada micro-lote.
+* Genera los pasaportes digitales con códigos QR dinámicos accesibles para cooperativas, evaluadores y compradores internacionales.
+
+---
+
+## 2. Matriz General de Usuarios y Clientes
 
 | Actor / Usuario | Rol en la Cadena | Dispositivo "Cliente" | Modo de Conexión | Qué Espera de la Plataforma |
 |---|---|---|---|---|
-| **Pequeño y Mediano Caficultor** | Captura en origen y control de calidad en finca | Módulo IoT (ESP32) + Smartphone (App Móvil Offline-First) | Bluetooth BLE / Wi-Fi Local $\rightarrow$ *Store & Forward* (sincroniza al tener señal) | Alertas de riesgo en vivo (pH y temperatura), cero pérdida de lotes por sobrefermentación, y certificación de origen para exigir mejor precio. |
-| **Cooperativas Cafetaleras** | Acopio, consolidación de micro-lotes y gestión regional | Computadora de escritorio / Laptop / Tablet en acopio | Portal Web Administrativo (HTTPS) hacia Servidor Azure | Vista unificada de los lotes de todos sus socios, validación de normativas de exportación (EUDR) y reportes de calidad regional. |
+| **Pequeño y Mediano Caficultor** | Captura en origen y control de beneficiado | Smartphone o terminal local (Cliente Visor) | Wi-Fi local o BLE hacia el **Colector Local** | Visualizar el estado de su fermentación/secado en el patio sin depender de internet; saber que su lote está seguro y auditado. |
+| **Colector Local & Gateway (Sistema)** | Recolección, resguardo y sincronización | Dispositivo dedicado (Hub / Concentrador) | Red local $\rightarrow$ Enlace WAN (*Store & Forward* asíncrono) | Almacenar datos en frío de los sensores y despacharlos al servidor central cuando la conexión lo permita. |
+| **Cooperativas Cafetaleras** | Acopio, consolidación de micro-lotes y gestión regional | Computadora de escritorio / Laptop / Tablet en acopio | Portal Web Administrativo (HTTPS) hacia Servidor Azure | Vista unificada de los lotes recibidos, validación de normativas de exportación (EUDR) y reportes de calidad regional. |
 | **Catadores Certificados (Q-Graders)** | Evaluación sensorial y puntuación de taza | Laptop / Tablet en laboratorio de catación | Portal Web / Módulo Sensorial (Web App) | Correlacionar variables físicas/químicas con notas de sabor, auditar consistencia del lote y registrar puntaje oficial SCA (ej. 88+). |
 | **Instituciones (CONATRADEC / Gob.)** | Regulación, fomento cafetalero y soberanía de datos | Navegador Web / API de Integración Institucional | Portal Web de Estadísticas y Reportería País (REST API) | Soberanía técnica sobre los datos del café nicaragüense, estadísticas de cosecha y soporte documental para eventos internacionales. |
-| **Comprador / Tostador Internacional** | Adquisición de micro-lotes prémium en el extranjero | Smartphone / Tablet de uso común (Cámara estándar) | Escaneo de Código QR físico en saco/empaque (Web pública ligera) | Transparencia auditable: historia del café, curvas reales de secado/fermentación, geolocalización y respaldo del precio prémium. |
-| **Equipo de Soporte (Lubanic)** | Mantenimiento, calibración y administración técnica | Laptop / Consola de operaciones | SSH / Dashboard de telemetría y diagnósticos IoT | Monitoreo de estado de sensores (batería, calibración de electrodos pH) y estabilidad de la infraestructura cloud. |
+| **Comprador / Tostador Internacional** | Adquisición de micro-lotes prémium en el extranjero | Smartphone / Tablet de uso común (Cámara estándar) | Escaneo de Código QR en empaque (Web pública ligera) | Transparencia auditable: historia del café, curvas reales de secado/fermentación, geolocalización y respaldo del precio prémium. |
+| **Equipo de Soporte (Lubanic)** | Mantenimiento, calibración y administración técnica | Laptop / Consola de operaciones | SSH / Dashboard de telemetría y diagnósticos | Monitoreo de estado de colectores y sensores (batería, calibración de pH) y estabilidad de la infraestructura cloud. |
 
 ---
 
-## 2. Desglose Detallado por Tipo de Usuario
+## 3. Desglose de Responsabilidades y Clientes
 
-### 2.1. Pequeño y Mediano Productor Cafetalero
-* **Perfil:** Agricultores en zonas montañosas de alta altitud (ej. Dipilto, Jalapa, Matagalpa, Jinotega). Frecuentemente operan sin conexión de datos móviles continua en sus patios de secado o pilas de fermentación.
-* **Dispositivo Cliente:**
-  - **Nodo de Hardware:** Módulo ESP32 con sensores industriales (pH sumergible, DS18B20 impermeable, SHT31 ambiental y celda de carga).
-  - **Interfaz Móvil:** Aplicación móvil ligera para Android (o PWA) instalada en su teléfono celular.
-* **Mecanismo de Conexión:**
-  - Comunicación de corto alcance vía **Bluetooth Low Energy (BLE)** o **Wi-Fi en modo Punto de Acceso (AP)** generado por el mismo ESP32.
-  - **Viabilidad Regulatoria en Nicaragua:** Se descartan formalmente enlaces de radio de largo alcance tipo LoRa (sub-GHz) para evitar trámites de licencias y concesiones de espectro radioeléctrico ante el ente regulador (TELCOR). Para un desglose técnico y legal completo, consultar [Nota Técnica y Regulatoria: Justificación del Descarte de LoRa](nota-regulatoria-lora.md). Bluetooth BLE y Wi-Fi en 2.4 GHz operan en bandas libres universales, son 100% legales y compatibles de fábrica con cualquier smartphone.
-  - **Offline-First:** El módulo y el teléfono almacenan las lecturas localmente en memoria no volátil (*Store & Forward*). Cuando el productor se desplaza al pueblo o a la sede de la cooperativa donde hay señal Wi-Fi o red móvil, los datos se sincronizan automáticamente con el servidor central.
-* **Expectativas Principales:**
-  - **Prevención de pérdidas:** Recibir un aviso visual o sonoro en el teléfono antes de que la masa de café sobrepase los $40^\circ\text{C}$ o el pH caiga por debajo de $4.0$.
-  - **Simplicidad:** No tener que configurar redes complicadas ni pagar suscripciones mensuales en dólares.
-  - **Poder de negociación:** Presentar un reporte objetivo al comprador para demostrar que su café califica en el rango de alta especialidad.
+### 3.1. El Productor y la Aplicación Móvil (Solo Visor Local)
+* **Revisión del rol móvil:** La aplicación móvil del caficultor **no es responsable de la subida de datos a la nube**. Forzar al productor a ser el canal de subida crea inconsistencias y riesgo de pérdida de datos si el celular se apaga, no tiene batería o sale del rango.
+* **Cliente Visor:** El productor utiliza su teléfono únicamente como pantalla o visor dentro de la red local del Colector para:
+  - Inspeccionar los valores actuales (ej. pH de fermentación, temperatura del secador).
+  - Recibir avisos preventivos en el patio mientras trabaja el lote.
+* La tarea de persistencia y despacho hacia la nube recae 100% en el **Colector Local + Gateway**.
 
----
-
-### 2.2. Administrador / Técnico de Cooperativa
-* **Perfil:** Encargados de control de calidad, acopio y exportación de asociaciones comunitarias.
-* **Dispositivo Cliente:**
-  - Computadora de escritorio o laptop en la oficina central de la cooperativa.
-  - Tablet industrial o terminal en la báscula de recepción de grano.
-* **Mecanismo de Conexión:**
-  - Conexión a internet mediante navegador web estándar a la URL del portal administrativo centralizado en Azure.
-* **Expectativas Principales:**
-  - **Visibilidad integral:** Dashboard en tiempo real que liste todos los lotes entregados por sus socios caficultores.
-  - **Cumplimiento EUDR:** Generar con un clic el mapa de polígonos de las parcelas para certificar que el café no proviene de zonas deforestadas.
-  - **Estandarización:** Filtrar micro-lotes homogéneos para preparar contenedores de exportación homogéneos y consistentes.
-  - **Cero dependencia:** No pagar licencias de software privativo extranjero como Cropster.
+### 3.2. Tolerancia a la Latencia y Manejo de Conectividad Débil
+* Las fincas no cuentan con enlaces de alta velocidad.
+* Los datos se transmiten en estructuras compactas (ej. formato binario o JSON serializado liviano).
+* Cada registro lleva su marca temporal local (*timestamp* calibrado mediante RTC o sincronización de red).
+* Las consultas en la nube reflejan claramente el estado de sincronización (ej. *"Lote sincronizado hace 2 horas"*), manteniendo total rigor científico sin pretender un falso "tiempo real" en la nube.
 
 ---
 
-### 2.3. Catadores Certificados (Q-Graders) y Laboratorios
-* **Perfil:** Especialistas sensoriales encargados de calibrar fragancia, aroma, sabor, acidez, cuerpo y balance de cada lote.
-* **Dispositivo Cliente:**
-  - Tablet o laptop táctil en la mesa del laboratorio de catación.
-* **Mecanismo de Conexión:**
-  - Interfaz web con formulario interactivo de evaluación homologado con el protocolo de la Specialty Coffee Association (SCA).
-* **Expectativas Principales:**
-  - Consultar de antemano el perfil técnico del lote (curva de fermentación y secado).
-  - Ingresar notas organolépticas y puntaje final (ej. 86 a 90+ puntos).
-  - Validar científicamente si una nota astringente o defecto fenólico fue originado por fallas térmicas durante el beneficiado.
-
----
-
-### 2.4. Entidades Rectoras (CONATRADEC, MIFIC, INATEC)
-* **Perfil:** Instituciones gubernamentales y sectoriales orientadas a la transformación de la caficultura nicaragüense.
-* **Dispositivo Cliente:**
-  - Portal institucional web y servicios de exportación de datos.
-* **Mecanismo de Conexión:**
-  - Navegador web corporativo y endpoints seguros API REST para analítica agregada.
-* **Expectativas Principales:**
-  - **Soberanía y Seguridad:** Custodiar la información agrícola estratégica dentro del país sin depender de servidores de terceros extranjeros.
-  - **Datos Macroeconómicos:** Estadísticas consolidadas de rendimiento por micro-cuencas, volumen de café de especialidad y precios promedio obtenidos.
-  - **Prestigio Internacional:** Evidencia auditable para respaldar las subastas electrónicas de *Taza de Excelencia*.
-
----
-
-### 2.5. Compradores y Tostadores Internacionales
-* **Perfil:** Importadores, cafeterías de tercera ola y tostadores boutique en Europa, Asia y Norteamérica que pagan precios récord (hasta US$ 140/lb).
-* **Dispositivo Cliente:**
-  - Smartphone personal (iPhone o Android) utilizando la cámara nativa sin instalar apps adicionales.
-* **Mecanismo de Conexión:**
-  - Escaneo óptico del código QR impreso en la etiqueta del saco de yute o en el empaque hermético.
-  - Apertura inmediata del **Pasaporte Digital del Lote** (vista web ultraligera y responsiva).
-* **Expectativas Principales:**
-  - **Cero Falsificaciones:** Garantía de que el lote que recibió en el puerto corresponde exactamente al café catado y cosechado.
-  - **Historia Completa:** Conocer el nombre de la finca, la altura (msnm), la variedad botánica y las gráficas interactivas de pH y secado térmico.
-  - **Certificación Normativa:** Comprobar la geolocalización y el cumplimiento ambiental sin fricción.
-
----
-
-## 3. Arquitectura de Conexión Cliente-Servidor
+## 4. Diagrama de Arquitectura de Conexión
 
 ```mermaid
 flowchart TD
-    subgraph Campo ["1. Nivel Campo (Offline-First)"]
-        ESP32["Módulo IoT (ESP32)\n• Sensores pH, Temp, Humedad\n• Memoria Flash Local"]
-        AppMovil["App Móvil Productor\n• Smartphone Android\n• Base de Datos Local SQLite"]
-        ESP32 -- "Bluetooth BLE / Wi-Fi AP" --> AppMovil
+    subgraph Finca ["1. Beneficiado en Finca (Red Local)"]
+        S1["Nodo Sensor 1: Fermentación\n(pH + Temp)"]
+        S2["Nodo Sensor 2: Secado\n(Temp Masa + Humedad)"]
+        S3["Nodo Sensor 3: Pesaje\n(Celda de Carga)"]
+        
+        Collector["Colector Local (Edge Hub)\n• Almacenamiento Flash / MicroSD\n• Servicio Local de Datos"]
+        VisorProductor["Smartphone Productor\n(Cliente Visor Local - Solo Lectura)"]
+        
+        S1 -- "BLE / Wi-Fi Local" --> Collector
+        S2 -- "BLE / Wi-Fi Local" --> Collector
+        S3 -- "BLE / Wi-Fi Local" --> Collector
+        Collector -. "Consulta Local" .-> VisorProductor
     end
 
-    subgraph Sincronizacion ["2. Sincronización (Store & Forward)"]
-        Gateway["Punto de Conexión\n(Wi-Fi Comunitario o Red Móvil en Pueblo)"]
-        AppMovil -. "Sincroniza cuando hay señal" .-> Gateway
+    subgraph EnlaceWAN ["2. Transmisión Asíncrona (Store & Forward)"]
+        Gateway["Gateway de Enlace\n(Módulo Celular / Enlace Rural)\n• Cola de Envíos en Lote\n• Tolerancia a Latencia"]
+        Collector --> Gateway
     end
 
     subgraph ServidorCentral ["3. Servidor Centralizado (Azure Cloud VM)"]
-        API["Backend API & Motor de Reglas\n(Node.js / Python Fast-API)"]
+        API["Backend API & Validador de Paquetes\n(Node.js / Python FastAPI)"]
         BD[("Base de Datos Relacional\nHistorial de Lotes y Telemetría")]
-        QRService["Generador de Pasaportes QR\nFichas Públicas Auditables"]
+        QRService["Servicio de Pasaporte QR\nFichas de Trazabilidad")]
         
-        Gateway --> API
+        Gateway -. "Envío por lotes asíncrono" .-> API
         API <--> BD
         API --> QRService
     end
 
-    subgraph ClientesEnNube ["4. Clientes Conectados al Servidor"]
+    subgraph ClientesEnNube ["4. Clientes Conectados al Servidor Central"]
         CoopClient["Portal Web Cooperativa\n(Laptop / PC de Oficina)"]
         QGraderClient["Portal de Catación\n(Tablet de Q-Grader)"]
-        GovClient["Dashboard CONATRADEC\n(PC Institucional)"]
+        GovClient["Dashboard Institucional\n(CONATRADEC / MIFIC)"]
         BuyerClient["Cámara de Smartphone\n(Comprador Internacional vía QR)"]
         
         CoopClient <--> API
@@ -146,11 +137,3 @@ flowchart TD
         BuyerClient <--> QRService
     end
 ```
-
----
-
-## 4. Conclusiones Técnicas para la Propuesta
-
-1. **El Servidor Central no exige que la finca tenga internet:** Gracias al patrón *Store & Forward*, el sistema resuelve la principal brecha técnica del campo montañoso de Nicaragua.
-2. **El cliente más importante para el comprador es el código QR:** No requiere descargar ninguna aplicación; cualquier teléfono moderno despliega el historial técnico en segundos.
-3. **El cliente para el productor es de cero fricción:** La recolección de variables físicas se realiza automáticamente en hardware independiente hermético con protección IP67.

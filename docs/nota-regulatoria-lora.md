@@ -44,14 +44,14 @@ Para garantizar que el sistema sea viable, legal y de bajo costo en el campo nic
    - El microcontrolador ESP32 DevKitC ya incorpora de fábrica los transceptores de BLE y Wi-Fi en su silicio.
    - No requiere comprar transceptores externos (como SX1276/SX1278), cables coaxiales ni antenas voluminosas, reduciendo el costo unitario del hardware y eliminando puntos de falla en ambientes húmedos (IP67).
 
-3. **Interacción Directa con el Teléfono del Productor:**
-   - Cualquier teléfono móvil moderno (Android o iOS) posee antena Bluetooth BLE integrada.
-   - El productor se acerca a la pila de fermentación o al patio de secado y su celular se conecta de forma inmediata al módulo ESP32, recibiendo las lecturas en tiempo real y alertas de riesgo.
+3. **Interacción Local y Monitoreo para el Productor:**
+   - Cualquier teléfono móvil moderno (Android o iOS) posee antena Bluetooth BLE y Wi-Fi integrada.
+   - El productor puede usar su celular como un **visor local** en la finca para consultar el estado del lote en la pila de fermentación o secador, sin asumir la responsabilidad técnica de la subida a la nube.
 
-4. **Patrón "Store & Forward" (Almacenar y Reenviar):**
-   - El ESP32 guarda los registros en su memoria interna no volátil (Flash/EEPROM).
-   - El teléfono del caficultor sincroniza y resguarda la información localmente en una base de datos SQLite ligera.
-   - Cuando el caficultor se traslada a la cabecera municipal, a su hogar o a las oficinas de la cooperativa donde existe cobertura celular o red Wi-Fi, los lotes pendientes se sincronizan automáticamente con el servidor central de SITRACAFE en la nube.
+4. **Patrón "Store & Forward" en Colector Local y Gateway:**
+   - Los nodos sensores transmiten sus lecturas por red local (BLE / Wi-Fi) al **Colector Local** de la finca.
+   - El Colector resguarda los registros de forma segura en memoria no volátil local.
+   - El **Gateway de Enlace** empaqueta los datos y los transmite de forma asíncrona hacia el servidor central en la nube conforme la conectividad rural lo permita, con tolerancia inherente a retrasos y desconexiones.
 
 ---
 

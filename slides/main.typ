@@ -189,16 +189,16 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
   columns: (1fr, 1fr, 1fr),
   gutter: 1em,
   card(title: [1. Sensores en Campo], badge: [ESP32], accent: c-green)[
-    Dispositivos autónomos de bajo costo que monitorean variables críticas:
-    - *pH y temperatura* de fermentación.
-    - *Curva térmica de secado* y humedad.
-    - *Peso preciso* del lote en tiempo real.
+    Dispositivos autónomos en patio y pilas de beneficio:
+    - *pH y temperatura* en fermentación.
+    - *Curva de secado* y humedad del grano.
+    - *Visor local:* Productor consulta en patio sin internet.
   ],
-  card(title: [2. Arquitectura Offline], badge: [Bluetooth BLE], accent: c-coffee)[
-    Diseñado para fincas sin cobertura celular:
-    - Protocolo *Store & Forward*: guarda los datos localmente en el ESP32.
-    - Sincronización directa por *Bluetooth BLE* al teléfono móvil.
-    - Cero permisos de radio: 100% legal en banda libre de 2.4 GHz.
+  card(title: [2. Colector & Gateway], badge: [Store & Forward], accent: c-coffee)[
+    Dispositivo concentrador en la red local de la finca:
+    - *Colector dedicado:* Recibe lecturas por BLE / Wi-Fi local.
+    - *Tolerancia a latencia:* Envío por lotes asíncronos.
+    - *Cero pérdida:* Sincronización asíncrona segura.
   ],
   card(title: [3. Soberanía de Datos], badge: [100% Abierto], accent: c-gold)[
     Propiedad absoluta para cooperativas y productores:
@@ -248,19 +248,19 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
     - Origen libre de deforestación (EUDR).
     - Variedad botánica y altura.
   ],
-  card(title: [Paso 2: Beneficiado], badge: [IoT], accent: c-coffee)[
+  card(title: [Paso 2: Beneficiado], badge: [Sensores], accent: c-coffee)[
     #align(center)[#text(size: 20pt)[🧪]]
     #v(-2pt)
     - Monitoreo de pH (4.2 - 4.5).
-    - Control de secado ($< 40 °C$).
-    - Alertas de riesgo en tiempo real.
+    - Control térmico ($< 40 °C$).
+    - Visor local para alertas en patio.
   ],
-  card(title: [Paso 3: Alianza], badge: [Sincronización], accent: c-gold)[
+  card(title: [Paso 3: Colector], badge: [Gateway], accent: c-gold)[
     #align(center)[#text(size: 20pt)[🏢]]
     #v(-2pt)
-    - Sincronización Store & Forward.
+    - Colector resguarda tramas en frío.
+    - Gateway sincroniza por lotes.
     - Datos consolidados a cooperativas.
-    - Respaldo a catadores Q-Graders.
   ],
   card(title: [Paso 4: Mercado], badge: [Pasaporte QR], accent: rgb("#0D6EFD"))[
     #align(center)[#text(size: 20pt)[📦]]
@@ -275,7 +275,7 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 #align(center)[
   #rect(fill: c-coffee-light, radius: 4pt, inset: (x: 10pt, y: 5pt))[
     #text(size: 10.5pt, fill: c-coffee, weight: "bold")[
-      Finca $arrow.r$ Módulo IoT (ESP32) $arrow.r$ Nube Institucional $arrow.r$ Pasaporte QR en Empaque
+      Finca (Sensores) $arrow.r$ Colector Local $arrow.r$ Gateway Asíncrono $arrow.r$ Nube $arrow.r$ Pasaporte QR
     ]
   ]
 ]
@@ -311,7 +311,7 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
         #v(4pt)
         #line(length: 100%, stroke: 0.5pt + c-border)
         #v(4pt)
-        #text(size: 9.5pt, weight: "bold", fill: c-coffee)[Monitoreo en Tiempo Real de Variables:]
+        #text(size: 9.5pt, weight: "bold", fill: c-coffee)[Monitoreo Histórico y Consolidado de Lotes:]
         #v(2pt)
         - Curvas de secado térmico estables en 94% de micro-lotes.
         - 0 incidentes de sobre-fermentación detectados este ciclo.
