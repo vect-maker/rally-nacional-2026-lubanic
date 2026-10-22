@@ -38,7 +38,7 @@ flowchart LR
 ```
 
 ### 1.1. Nodos Sensores en Campo (Sensor Nodes)
-* Módulos de hardware independientes basados en ESP32 ubicados en las pilas de fermentación, patios o secadoras solares.
+* Módulos de hardware independientes basados en el microcontrolador ESP32 programados en **C/C++** (ESP-IDF / Arduino Framework).
 * Miden periódicamente variables críticas: pH, temperatura de masa, curvas de secado, humedad y peso.
 * Transmiten sus lecturas a través de la red local (Bluetooth BLE o Wi-Fi local) hacia el Colector de la finca.
 
@@ -55,13 +55,26 @@ flowchart LR
   - Asegura que ningún registro se pierda ante caídas prolongadas de señal.
 
 ### 1.4. Servidor Centralizado en la Nube (SITRACAFE Cloud - Azure VM)
+* Desarrollado en **Rust con Axum**: Procesamiento asíncrono de alto rendimiento, bajo consumo de memoria y máxima seguridad de tipos.
 * Procesa los paquetes asíncronos recibidos desde los Gateways.
-* Mantiene la base de datos relacional con el historial completo de cada micro-lote.
+* Mantiene la base de datos **PostgreSQL** (modelo híbrido relacional + `JSONB`).
 * Genera los pasaportes digitales con códigos QR dinámicos accesibles para cooperativas, evaluadores y compradores internacionales.
 
 ---
 
-## 2. Matriz General de Usuarios y Clientes
+## 2. Stack Tecnológico Seleccionado y Justificación
+
+| Capa / Componente | Tecnología Seleccionada | Justificación Técnica y de Negocio |
+|---|---|---|
+| **Firmware Embebido (IoT)** | **C / C++ (ESP-IDF / Arduino)** | Extenso y maduro ecosistema de librerías para sensores industriales (electrodos de pH, MAX31865 SPI, DS18B20 OneWire, celdas de carga HX711), control determinista del hardware, optimización extrema de energía (modos *deep sleep*) y soporte oficial directo del fabricante (Espressif). |
+| **Backend & Ingesta API** | **Axum (Rust)** | Concurrencia nativa con Tokio, máxima seguridad de memoria sin *garbage collector*, latencia mínima y huella de RAM extremadamente baja (óptimo para instancias virtuales modestas en Azure y nodos colectores edge). |
+| **Base de Datos Central** | **PostgreSQL** | Estabilidad de nivel empresarial. Combina el modelo relacional estricto (productores, fincas, lotes, cooperativas, usuarios) con soporte nativo de **`JSONB` e indexación GIN** para curvas de telemetría semi-estructurada, eliminando la necesidad de añadir bases NoSQL como MongoDB. |
+| **Frontend Unificado** | **Vite (Multi-Entry Points)** | Un único proyecto frontend que genera múltiples puntos de entrada optimizados (`entry points`) según el rol del usuario (Portal Cooperativa, Formulario Q-Grader, Vista Pública del Pasaporte QR, Panel Institucional). Cero redundancia de código y tiempos de carga instantáneos. |
+| **Cliente Nativo / Desktop** | **Tauri (Rust + Webview)** | En estaciones de acopio o terminales locales que requieran aplicación de escritorio, Tauri provee binarios ultraligeros (< 15 MB) con backend en Rust, sin la sobrecarga de consumo de RAM de Electron. |
+
+---
+
+## 3. Matriz General de Usuarios y Clientes
 
 | Actor / Usuario | Rol en la Cadena | Dispositivo "Cliente" | Modo de Conexión | Qué Espera de la Plataforma |
 |---|---|---|---|---|
@@ -75,16 +88,16 @@ flowchart LR
 
 ---
 
-## 3. Desglose de Responsabilidades y Clientes
+## 4. Desglose de Responsabilidades y Clientes
 
-### 3.1. El Productor y la Aplicación Móvil (Solo Visor Local)
+### 4.1. El Productor y la Aplicación Móvil (Solo Visor Local)
 * **Revisión del rol móvil:** La aplicación móvil del caficultor **no es responsable de la subida de datos a la nube**. Forzar al productor a ser el canal de subida crea inconsistencias y riesgo de pérdida de datos si el celular se apaga, no tiene batería o sale del rango.
 * **Cliente Visor:** El productor utiliza su teléfono únicamente como pantalla o visor dentro de la red local del Colector para:
   - Inspeccionar los valores actuales (ej. pH de fermentación, temperatura del secador).
   - Recibir avisos preventivos en el patio mientras trabaja el lote.
 * La tarea de persistencia y despacho hacia la nube recae 100% en el **Colector Local + Gateway**.
 
-### 3.2. Tolerancia a la Latencia y Manejo de Conectividad Débil
+### 4.2. Tolerancia a la Latencia y Manejo de Conectividad Débil
 * Las fincas no cuentan con enlaces de alta velocidad.
 * Los datos se transmiten en estructuras compactas (ej. formato binario o JSON serializado liviano).
 * Cada registro lleva su marca temporal local (*timestamp* calibrado mediante RTC o sincronización de red).
@@ -92,7 +105,7 @@ flowchart LR
 
 ---
 
-## 4. Diagrama de Arquitectura de Conexión
+## 5. Diagrama de Arquitectura de Conexión
 
 ```mermaid
 flowchart TD
@@ -116,24 +129,26 @@ flowchart TD
     end
 
     subgraph ServidorCentral ["3. Servidor Centralizado (Azure Cloud VM)"]
-        API["Backend API & Validador de Paquetes\n(Node.js / Python FastAPI)"]
-        BD[("Base de Datos Relacional\nHistorial de Lotes y Telemetría")]
-        QRService["Servicio de Pasaporte QR\nFichas de Trazabilidad"]
+        API["Backend API en Rust (Axum)\n• Ingesta Asíncrona con Tokio\n• Validación de Paquetes"]
+        BD[("PostgreSQL\n• Relacional ACID\n• JSONB para Telemetría")]
+        QRService["Servicio de Pasaporte QR\n(Fichas de Trazabilidad)"]
         
         Gateway -. "Envío por lotes asíncrono" .-> API
         API <--> BD
         API --> QRService
     end
 
-    subgraph ClientesEnNube ["4. Clientes Conectados al Servidor Central"]
-        CoopClient["Portal Web Cooperativa\n(Laptop / PC de Oficina)"]
-        QGraderClient["Portal de Catación\n(Tablet de Q-Grader)"]
-        GovClient["Dashboard Institucional\n(CONATRADEC / MIFIC)"]
-        BuyerClient["Cámara de Smartphone\n(Comprador Internacional vía QR)"]
+    subgraph ClientesEnNube ["4. Clientes Conectados (Frontend Unificado con Vite)"]
+        CoopClient["Portal Web Cooperativa\n(Entry Point: /coop)"]
+        QGraderClient["Portal de Catación\n(Entry Point: /catacion)"]
+        GovClient["Dashboard Institucional\n(Entry Point: /conatradec)"]
+        BuyerClient["Cámara de Smartphone\n(Entry Point: /pasaporte/:id)"]
+        TauriApp["Cliente Desktop Tauri (Rust)\n(Para Terminales de Acopio)"]
         
         CoopClient <--> API
         QGraderClient <--> API
         GovClient <--> API
         BuyerClient <--> QRService
+        TauriApp <--> API
     end
 ```
