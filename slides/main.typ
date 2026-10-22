@@ -335,57 +335,57 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 // SLIDE 6: PASAPORTE DIGITAL EN VIVO (QR)
 // ==========================================
 #text(size: 22pt, weight: "bold", fill: c-coffee)[El Pasaporte Digital en el Empaque] \
-#text(size: 12pt, fill: c-muted)[El comprador escanea el código en el saco y conoce la historia científica del café.]
+#text(size: 12pt, fill: c-muted)[El comprador escanea el código en el saco y accede a la historia y telemetría del café.]
 
-#v(0.4em)
+#v(0.3em)
 
 #grid(
-  columns: (1.2fr, 0.95fr),
-  gutter: 1.2em,
+  columns: (1.1fr, 0.75fr, 0.85fr),
+  gutter: 0.8em,
   [
     #rect(
       width: 100%,
       fill: white,
       radius: 7pt,
       stroke: 1.5pt + c-gold,
-      inset: 11pt,
+      inset: 10pt,
       [
         #grid(
           columns: (1fr, auto),
           align: (left + horizon, right + horizon),
-          text(size: 13.5pt, weight: "bold", fill: c-coffee)[Lote Demo: #text(fill: c-gold)[#raw("#DIP-2026-042")]],
-          rect(fill: c-green, radius: 4pt, inset: (x: 5pt, y: 2.5pt), text(fill: white, size: 8.5pt, weight: "bold")[SCA 88.5 · Q-Grader Oficial])
+          text(size: 12.5pt, weight: "bold", fill: c-coffee)[Lote Demo: #text(fill: c-gold)[#raw("#DIP-2026-042")]],
+          rect(fill: c-green, radius: 4pt, inset: (x: 4pt, y: 2pt), text(fill: white, size: 8pt, weight: "bold")[SCA 88.5])
         )
-        #v(3pt)
+        #v(2pt)
         #line(length: 100%, stroke: 0.5pt + c-gold.lighten(50%))
-        #v(3pt)
+        #v(2pt)
         
         #grid(
           columns: (1fr, 1fr),
-          gutter: 0.6em,
+          gutter: 0.5em,
           [
-            #text(size: 9pt, fill: c-muted)[Origen & Productor] \
-            #text(size: 10pt, weight: "bold")[Finca El Paraíso] \
-            #text(size: 9pt)[Dipilto, Nueva Segovia]
+            #text(size: 8.5pt, fill: c-muted)[Origen] \
+            #text(size: 9.5pt, weight: "bold")[Finca El Paraíso] \
+            #text(size: 8.5pt)[Dipilto, N. Segovia]
           ],
           [
-            #text(size: 9pt, fill: c-muted)[Variedad & Proceso] \
-            #text(size: 10pt, weight: "bold")[Geisha · Honey] \
-            #text(size: 9pt)[Altura: 1,450 msnm]
+            #text(size: 8.5pt, fill: c-muted)[Variedad / Proceso] \
+            #text(size: 9.5pt, weight: "bold")[Geisha · Honey] \
+            #text(size: 8.5pt)[1,450 msnm]
           ]
         )
         
-        #v(4pt)
-        #line(length: 100%, stroke: 0.5pt + c-border)
         #v(3pt)
-        
-        #text(size: 9.5pt, weight: "bold", fill: c-green)[Telemetría Verificada por Sensores IoT:]
+        #line(length: 100%, stroke: 0.5pt + c-border)
         #v(2pt)
-        #text(size: 9pt)[
-          - *pH final de fermentación:* 4.3 (Rango óptimo garantizado). \
-          - *Temperatura máx. secado:* 36.8 °C ($< 40 °C$). \
-          - *Humedad en grano:* 11.2% (Estabilidad de exportación). \
-          - *Cumplimiento EUDR:* Parcela verificada libre de deforestación.
+        
+        #text(size: 9pt, weight: "bold", fill: c-green)[Telemetría IoT en Finca:]
+        #v(1pt)
+        #text(size: 8.5pt)[
+          - *pH fermentación:* 4.3 (Óptimo). \
+          - *Temp. máx. secado:* 36.8 °C ($< 40 °C$). \
+          - *Humedad grano:* 11.2% (Exportable). \
+          - *EUDR:* Parcela sin deforestación.
         ]
       ]
     )
@@ -393,22 +393,35 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
   [
     #align(center)[
       #rect(
+        radius: 8pt,
+        stroke: 1.5pt + c-coffee.lighten(50%),
+        fill: white,
+        inset: 2pt,
+        [
+          #image("assets/mockup-pasaporte-calidad.png", height: 10.6cm, fit: "contain")
+        ]
+      )
+    ]
+  ],
+  [
+    #align(center)[
+      #rect(
         fill: white,
         radius: 7pt,
         stroke: 1pt + c-border,
-        inset: (x: 10pt, y: 8pt),
+        inset: (x: 8pt, y: 7pt),
         [
-          #qrcode(lote-qr-data, width: 3.6cm)
-          #v(3pt)
-          #text(size: 10pt, weight: "bold", fill: c-coffee)[¡Escanea con tu cámara!] \
-          #text(size: 8pt, fill: c-muted)[Muestra directa de texto del lote en tu pantalla] \
+          #qrcode(lote-qr-data, width: 3.2cm)
+          #v(2pt)
+          #text(size: 9.5pt, weight: "bold", fill: c-coffee)[¡Escanea con tu cámara!] \
+          #text(size: 7.5pt, fill: c-muted)[Prueba la auditoría del lote] \
           #v(2pt)
           #rect(
             fill: c-gold-light,
             stroke: 0.5pt + c-gold,
             radius: 3pt,
-            inset: (x: 6pt, y: 2pt),
-            text(size: 7.5pt, weight: "bold", fill: c-coffee)[Modo Demo: Datos estáticos de demostración]
+            inset: (x: 5pt, y: 2pt),
+            text(size: 7pt, weight: "bold", fill: c-coffee)[Modo Demo: Ficha estática]
           )
         ]
       )

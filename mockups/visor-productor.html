@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SITRACAFE - Visor Local de Finca</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter, Playfair Display, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary-container": "#376e46",
+            "on-error": "#ffffff",
+            "primary-fixed-dim": "#e6bfa1",
+            "tertiary-fixed": "#ffddb5",
+            "on-background": "#1d1b19",
+            "inverse-primary": "#e6bfa1",
+            "surface-container-highest": "#e6e2de",
+            "error": "#ba1a1a",
+            "error-container": "#ffdad6",
+            "on-secondary-fixed": "#00210c",
+            "inverse-surface": "#32302e",
+            "background": "#fef8f4",
+            "inverse-on-surface": "#f5f0ec",
+            "surface-container-low": "#f8f3ef",
+            "tertiary-container": "#402700",
+            "outline-variant": "#d3c4ba",
+            "surface-container-high": "#ece7e3",
+            "on-tertiary-fixed-variant": "#643f00",
+            "tertiary-fixed-dim": "#ffb957",
+            "on-primary-fixed": "#2b1704",
+            "surface-bright": "#fef8f4",
+            "secondary-fixed-dim": "#99d4a4",
+            "on-tertiary-fixed": "#2a1800",
+            "on-error-container": "#93000a",
+            "surface-container": "#f2ede9",
+            "on-tertiary-container": "#c58729",
+            "on-primary-container": "#af8d71",
+            "secondary": "#326942",
+            "outline": "#81756c",
+            "primary-container": "#3e2712",
+            "secondary-container": "#b2eebc",
+            "surface-container-lowest": "#ffffff",
+            "on-primary": "#ffffff",
+            "surface-dim": "#ded9d5",
+            "surface-variant": "#e6e2de",
+            "on-secondary-fixed-variant": "#18512c",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#1d1b19",
+            "tertiary": "#251400",
+            "primary-fixed": "#ffdcc1",
+            "on-primary-fixed-variant": "#5c412a",
+            "surface-tint": "#765840",
+            "surface": "#fef8f4",
+            "primary": "#261302",
+            "on-secondary": "#ffffff",
+            "on-surface-variant": "#4f453d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "gutter-mobile": "1rem",
+            "margin": "2.5rem",
+            "space-xs": "0.25rem",
+            "space-xl": "2.5rem",
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "margin-mobile": "1.25rem",
+            "space-md": "1rem",
+            "space-sm": "0.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-sm": ["Playfair Display"],
+            "display-hero": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "label-code-sm": ["JetBrains Mono"],
+            "label-certificate": ["Inter"],
+            "body-sm": ["Inter"],
+            "headline-md": ["Playfair Display"],
+            "body-md": ["Inter"],
+            "label-telemetry": ["JetBrains Mono"],
+            "display-hero-mobile": ["Playfair Display"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-code-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "500" }],
+            "label-certificate": ["11px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-telemetry": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+            "display-hero-mobile": ["34px", { "lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .etched-border {
+      box-shadow: inset 0 0 0 1px rgba(62, 39, 18, 0.12);
+    }
+    .sunlight-contrast-shadow {
+      box-shadow: 0 4px 16px -2px rgba(62, 39, 18, 0.08), 0 1px 3px 0 rgba(62, 39, 18, 0.06);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex justify-center selection:bg-secondary-container selection:text-on-secondary-fixed">
+<!-- Mobile Portrait Shell (Max 390px viewport container) -->
+<div class="w-full max-w-[390px] bg-background min-h-screen flex flex-col pb-24 relative overflow-x-hidden border-x border-outline-variant/30">
+<!-- 1. TOP BAR & BRAND HEADER -->
+<header class="w-full bg-surface-container-low px-gutter-mobile pt-space-md pb-space-sm shadow-sm">
+<!-- Shared TopAppBar Structure translated from JSON -->
+<div class="flex justify-between items-center w-full py-space-xs">
+<button aria-label="Volver" class="p-space-xs text-primary active:scale-95 transition-transform duration-150 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-display-hero-mobile text-headline-sm tracking-tight text-primary font-bold">SITRACAFE</span>
+<span class="font-label-certificate text-label-code-sm text-on-surface-variant tracking-wider font-semibold">VISOR LOCAL</span>
+</div>
+<button aria-label="Escanear Sensor" class="p-space-xs text-primary active:scale-95 transition-transform duration-150 flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="qr_code_scanner">qr_code_scanner</span>
+</button>
+</div>
+<!-- Offline / Local BLE Banner Chip -->
+<div class="mt-space-sm pt-space-xs">
+<div class="flex items-center justify-between bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-space-xs px-space-sm sunlight-contrast-shadow">
+<div class="flex items-center gap-space-xs">
+<span class="relative flex h-2.5 w-2.5">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-secondary"></span>
+</span>
+<span class="font-label-telemetry text-label-code-sm font-semibold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="wifi_off">wifi_off</span>
+              Red Local Finca (Sin Internet)
+            </span>
+</div>
+<span class="font-label-code-sm text-label-code-sm bg-secondary/10 text-secondary px-1.5 py-0.5 rounded border border-secondary/20 font-bold">BLE P2P</span>
+</div>
+<!-- Farm Context Subtitle -->
+<div class="mt-space-xs flex items-center justify-between text-on-surface-variant px-space-xs">
+<p class="font-body-md text-body-sm font-semibold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="nature_people">nature_people</span>
+            Finca El Paraíso · Lote #DIP-2026-042
+          </p>
+<span class="font-label-code-sm text-label-code-sm text-outline font-medium">1,780 msnm</span>
+</div>
+</div>
+</header>
+<!-- MAIN SCROLLABLE CONTENT CANVAS -->
+<main class="px-gutter-mobile pt-space-md space-y-space-md flex-1">
+<!-- 2. ACTIVE FERMENTATION MONITOR CARD -->
+<section class="bg-surface-container-low rounded-xl border border-primary/20 p-space-md sunlight-contrast-shadow relative overflow-hidden">
+<!-- Certificate Hairline Guilloche Framing Accent -->
+<div class="absolute inset-1 pointer-events-none rounded-lg border border-primary/10"></div>
+<!-- Header of Card -->
+<div class="flex items-start justify-between relative z-10 mb-space-sm">
+<div>
+<span class="font-label-code-sm text-label-code-sm font-bold text-on-tertiary-container uppercase tracking-widest block">Módulo Fermentación</span>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">Pila de Fermentación #02</h2>
+</div>
+<!-- Big Status Badge -->
+<div class="inline-flex items-center gap-1 bg-secondary text-on-secondary px-space-sm py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-certificate text-label-code-sm font-bold tracking-wider">ESTADO ÓPTIMO</span>
+</div>
+</div>
+<!-- Dual Sensor Telemetry Display (High Outdoor Sunlight Contrast) -->
+<div class="grid grid-cols-2 gap-space-sm relative z-10 my-space-sm">
+<!-- Main Metric: pH Display -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg border-2 border-primary/20 flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-label-certificate text-label-code-sm font-bold uppercase tracking-wide">Acidez pH</span>
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="water_ph">science</span>
+</div>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-display-hero-mobile text-4xl font-extrabold text-primary tracking-tight">4.3</span>
+<span class="font-label-code-sm text-label-code-sm text-secondary font-bold">pH</span>
+</div>
+<div class="text-xs font-label-telemetry text-secondary font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="arrow_drop_down">arrow_drop_down</span>
+              -0.15 / 4h
+            </div>
+</div>
+<!-- Secondary Metric: Temp Masa -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant flex flex-col justify-between">
+<div class="flex items-center justify-between text-on-surface-variant mb-1">
+<span class="font-label-certificate text-label-code-sm font-bold uppercase tracking-wide">Temp Masa</span>
+<span class="material-symbols-outlined text-sm text-on-tertiary-container" data-icon="device_thermostat">device_thermostat</span>
+</div>
+<div class="flex items-baseline gap-1 my-1">
+<span class="font-display-hero-mobile text-4xl font-extrabold text-primary tracking-tight">21.8</span>
+<span class="font-label-code-sm text-label-code-sm text-on-surface-variant font-bold">°C</span>
+</div>
+<div class="text-xs font-label-telemetry text-on-surface-variant font-medium flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs text-secondary" data-icon="horizontal_rule">horizontal_rule</span>
+              Estable ±0.3°C
+            </div>
+</div>
+</div>
+<!-- Agronomic Advisory Callout -->
+<div class="bg-secondary/10 border-l-4 border-secondary p-space-sm rounded-r-lg relative z-10 mb-space-sm">
+<div class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-secondary text-base mt-0.5 flex-shrink-0" data-icon="eco">eco</span>
+<p class="font-body-md text-body-sm font-medium text-primary">
+<strong class="font-semibold text-secondary">Rango óptimo para lavado alcanzado (4.2 - 4.5).</strong> Listo para lavar sin sobrefermentación.
+            </p>
+</div>
+</div>
+<!-- Sparkline Trend Graph (pH Drop Curve over 36 Hours) -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant/80 relative z-10">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-code-sm text-label-code-sm font-bold text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="timeline">timeline</span>
+              CURVA DE CINÉTICA pH (ÚLTIMAS 36h)
+            </span>
+<span class="font-label-code-sm text-label-code-sm text-outline">Pila Anaeróbica</span>
+</div>
+<!-- SVG Sparkline & Axis -->
+<div class="w-full h-24 pt-1 pb-2">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 320 80">
+<defs>
+<lineargradient id="gradientPh" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#326942" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#326942" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Target optimal zone band (pH 4.2 to 4.5) -->
+<rect fill="#b2eebc" fill-opacity="0.28" height="18" rx="2" width="320" x="0" y="48"></rect>
+<line opacity="0.6" stroke="#326942" stroke-dasharray="3,3" stroke-width="0.8" x1="0" x2="320" y1="48" y2="48"></line>
+<line opacity="0.6" stroke="#326942" stroke-dasharray="3,3" stroke-width="0.8" x1="0" x2="320" y1="66" y2="66"></line>
+<!-- Subtle Horizontal Grid Lines -->
+<line stroke="#d3c4ba" stroke-dasharray="2,2" stroke-width="0.75" x1="0" x2="320" y1="10" y2="10"></line>
+<line stroke="#d3c4ba" stroke-dasharray="2,2" stroke-width="0.75" x1="0" x2="320" y1="35" y2="35"></line>
+<!-- Area Fill Under Curve -->
+<polygon fill="url(#gradientPh)" points="10,12 60,18 120,32 180,44 240,55 310,61 310,75 10,75"></polygon>
+<!-- Main pH Path Curve (5.8 down to 4.3) -->
+<polyline fill="none" points="10,12 60,18 120,32 180,44 240,55 310,61" stroke="#261302" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></polyline>
+<!-- Data Point Markers -->
+<circle cx="10" cy="12" fill="#261302" r="3" stroke="#ffffff" stroke-width="1.5"></circle>
+<circle cx="120" cy="32" fill="#261302" r="2.5" stroke="#ffffff" stroke-width="1"></circle>
+<circle cx="240" cy="55" fill="#261302" r="2.5" stroke="#ffffff" stroke-width="1"></circle>
+<!-- Current Active Point -->
+<circle cx="310" cy="61" fill="#326942" r="4.5" stroke="#ffffff" stroke-width="2"></circle>
+</svg>
+</div>
+<!-- Axis Labels -->
+<div class="flex justify-between items-center text-label-code-sm font-label-code-sm text-outline border-t border-outline-variant/60 pt-1">
+<span>0h (pH 5.8)</span>
+<span>12h</span>
+<span>24h</span>
+<span class="text-secondary font-bold">36h Ahora (pH 4.3)</span>
+</div>
+</div>
+</section>
+<!-- 3. SOLAR DRYER / PATIO MONITOR CARD -->
+<section class="bg-surface-container-low rounded-xl border border-primary/20 p-space-md sunlight-contrast-shadow relative">
+<div class="absolute inset-1 pointer-events-none rounded-lg border border-primary/10"></div>
+<!-- Header with Status Badge -->
+<div class="flex items-start justify-between relative z-10 mb-space-sm">
+<div>
+<span class="font-label-code-sm text-label-code-sm font-bold text-on-tertiary-container uppercase tracking-widest block">Monitoreo de Secado</span>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">Secador Solar #01</h2>
+</div>
+<div class="inline-flex items-center gap-1 bg-surface-container-lowest text-secondary border border-secondary px-space-sm py-1 rounded-full shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold" data-icon="wb_sunny">wb_sunny</span>
+<span class="font-label-certificate text-label-code-sm font-bold tracking-wider">Secado Seguro</span>
+</div>
+</div>
+<div class="space-y-space-md relative z-10">
+<!-- Temperature Metric & Gauge -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-certificate text-label-code-sm font-bold text-on-surface-variant uppercase">Temperatura Carpa Solar</span>
+<div class="flex items-baseline gap-1">
+<span class="font-display-hero-mobile text-2xl font-bold text-primary">35.4</span>
+<span class="font-label-code-sm text-label-code-sm font-bold text-on-surface-variant">°C</span>
+</div>
+</div>
+<!-- Progress/Gauge Bar with Threshold Limit -->
+<div class="relative w-full h-3 bg-surface-container-high rounded-full overflow-hidden my-1">
+<!-- Safe fill bar (35.4 out of 45 scale) -->
+<div class="h-full bg-on-tertiary-container rounded-full" style="width: 78.6%;"></div>
+<!-- Critical marker at 40°C (88.8%) -->
+<div class="absolute top-0 bottom-0 w-0.5 bg-error z-20" style="left: 88.8%;"></div>
+</div>
+<div class="flex justify-between items-center font-label-code-sm text-label-code-sm pt-1">
+<span class="text-secondary font-medium">Zona Segura (&lt; 38°C)</span>
+<span class="text-error font-bold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span>
+                Máximo 40 °C (Crítico)
+              </span>
+</div>
+</div>
+<!-- Moisture Metric & Target Bar -->
+<div class="bg-surface-container-lowest p-space-sm rounded-lg border border-outline-variant">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-label-certificate text-label-code-sm font-bold text-on-surface-variant uppercase">Humedad en Grano Pergamino</span>
+<span class="font-label-code-sm text-label-telemetry font-bold text-primary">13.5%</span>
+</div>
+<!-- Visual Progress to Target (11-12%) -->
+<div class="relative w-full h-3 bg-surface-container-high rounded-full overflow-hidden my-1">
+<!-- Progress towards dry target (from 45% fresh to 11% target) -->
+<div class="h-full bg-secondary rounded-full" style="width: 68%;"></div>
+</div>
+<div class="flex justify-between items-center font-label-code-sm text-label-code-sm pt-1">
+<span class="text-on-surface-variant">Humedad actual: <strong>13.5%</strong></span>
+<span class="text-secondary font-bold bg-secondary/10 px-1 rounded">Meta: 11 - 12%</span>
+</div>
+<p class="font-body-sm text-label-code-sm text-outline mt-1 italic">Aprox. 6-8 horas adicionales de insolación indirecta restantes.</p>
+</div>
+</div>
+</section>
+<!-- 4. LOCAL COLLECTOR HUB & STORE-AND-FORWARD DIAGNOSTICS -->
+<section class="bg-surface-container rounded-lg border border-outline p-space-md sunlight-contrast-shadow">
+<div class="flex items-center justify-between pb-space-xs border-b border-outline-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary text-base" data-icon="dns">dns</span>
+<span class="font-label-certificate text-label-code-sm font-bold uppercase tracking-wider text-primary">DIAGNÓSTICO LOCAL HUB</span>
+</div>
+<span class="font-label-code-sm text-label-code-sm font-bold bg-surface-container-lowest text-primary px-1.5 py-0.5 rounded border border-outline-variant">STORE &amp; FORWARD</span>
+</div>
+<!-- Telemetry Key-Value Matrix -->
+<div class="mt-space-sm space-y-space-xs font-label-telemetry text-label-code-sm">
+<div class="flex justify-between items-center py-1 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Dispositivo:</span>
+<span class="font-semibold text-primary">Colector Local Hub #04</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Memoria local:</span>
+<span class="font-bold text-primary bg-primary-fixed/30 px-1 py-0.5 rounded">1,840 lecturas guardadas en frío</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-outline-variant/40">
+<span class="text-on-surface-variant">Estado enlace Gateway:</span>
+<span class="text-on-tertiary-container font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs" data-icon="hourglass_top">hourglass_top</span>
+              Sincronización en cola (asíncrona)
+            </span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="text-on-surface-variant">Batería sensores:</span>
+<span class="font-bold text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm font-bold text-secondary" data-icon="solar_power">solar_power</span>
+<span class="material-symbols-outlined text-sm font-bold text-secondary" data-icon="battery_charging_full">battery_charging_full</span>
+              94% (Panel Solar)
+            </span>
+</div>
+</div>
+</section>
+<!-- 5. ACTION BUTTONS & FOOTER -->
+<section class="space-y-space-sm pt-space-xs">
+<!-- Primary Button: Actualizar Lecturas Locales -->
+<button class="w-full bg-primary-container text-background py-3 px-space-md rounded-lg font-label-certificate text-label-certificate uppercase tracking-widest font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform duration-150 shadow-md border border-on-tertiary-container/30" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="sync">sync</span>
+          Actualizar Lecturas Locales
+        </button>
+<!-- Secondary Outlined Button: Consultar Historial 24h -->
+<button class="w-full bg-transparent border-2 border-primary/40 text-primary py-2.5 px-space-md rounded-lg font-label-certificate text-label-certificate uppercase tracking-wider font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform duration-150 hover:bg-surface-container" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+          Consultar Historial 24h
+        </button>
+<!-- Cryptographic Sovereign Footer Note -->
+<div class="pt-space-sm pb-space-xs text-center border-t border-outline-variant/50 mt-space-md">
+<div class="inline-flex items-center gap-1 text-on-surface-variant font-label-code-sm text-label-code-sm">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="verified_user">verified_user</span>
+<span>Operación 100% Local · Soberanía de Datos · Equipo Lubanic</span>
+</div>
+<p class="font-label-code-sm text-[9px] text-outline mt-0.5 tracking-wider">HASH: 8F3A...E209 · PROTOCOLO SITRA-FIELD v2.4</p>
+</div>
+</section>
+</main>
+<!-- BOTTOM NAVIGATION BAR (Derived from Shared Components JSON) -->
+<!-- Active Destination: Telemetry (Selected for Live Monitoring Dashboard) -->
+<nav class="fixed bottom-0 left-0 right-0 max-w-[390px] mx-auto z-50 flex justify-around items-center px-gutter-mobile py-space-xs bg-surface-container-low shadow-md">
+<!-- 1. Passport (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-space-md py-space-xs hover:text-primary active:scale-95 transition-transform duration-150" href="#passport">
+<span class="material-symbols-outlined text-xl" data-icon="verified">verified</span>
+<span class="font-label-code-sm text-label-code-sm tracking-tight mt-0.5">Passport</span>
+</a>
+<!-- 2. Cupping (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-space-md py-space-xs hover:text-primary active:scale-95 transition-transform duration-150" href="#cupping">
+<span class="material-symbols-outlined text-xl" data-icon="coffee">coffee</span>
+<span class="font-label-code-sm text-label-code-sm tracking-tight mt-0.5">Cupping</span>
+</a>
+<!-- 3. Telemetry (ACTIVE - Injected exact style_active_navigation) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-fixed rounded-lg px-space-md py-space-xs shadow-sm" href="#telemetry">
+<span class="material-symbols-outlined text-xl text-primary-fixed" data-icon="sensors" data-weight="fill" style="font-variation-settings: 'FILL' 1;">sensors</span>
+<span class="font-label-code-sm text-label-code-sm tracking-tight font-bold text-primary-fixed mt-0.5">Telemetry</span>
+</a>
+<!-- 4. Origin (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-space-md py-space-xs hover:text-primary active:scale-95 transition-transform duration-150" href="#origin">
+<span class="material-symbols-outlined text-xl" data-icon="public">public</span>
+<span class="font-label-code-sm text-label-code-sm tracking-tight mt-0.5">Origin</span>
+</a>
+</nav>
+</div>
+</body></html>

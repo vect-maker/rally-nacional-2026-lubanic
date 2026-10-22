@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SITRACAFE - Pasaporte Digital de Lote</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#e6e2de",
+            "primary-fixed": "#ffdcc1",
+            "on-tertiary-fixed": "#2a1800",
+            "on-primary-container": "#af8d71",
+            "error": "#ba1a1a",
+            "on-surface-variant": "#4f453d",
+            "on-surface": "#1d1b19",
+            "tertiary": "#251400",
+            "tertiary-container": "#402700",
+            "tertiary-fixed-dim": "#ffb957",
+            "surface-container-high": "#ece7e3",
+            "inverse-primary": "#e6bfa1",
+            "on-secondary": "#ffffff",
+            "on-primary": "#ffffff",
+            "primary": "#261302",
+            "inverse-on-surface": "#f5f0ec",
+            "on-primary-fixed": "#2b1704",
+            "surface-container-highest": "#e6e2de",
+            "primary-fixed-dim": "#e6bfa1",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed": "#b5f1bf",
+            "surface": "#fef8f4",
+            "on-secondary-fixed-variant": "#18512c",
+            "on-primary-fixed-variant": "#5c412a",
+            "secondary-container": "#b2eebc",
+            "surface-container-low": "#f8f3ef",
+            "on-secondary-container": "#376e46",
+            "outline-variant": "#d3c4ba",
+            "primary-container": "#3e2712",
+            "secondary-fixed-dim": "#99d4a4",
+            "on-error-container": "#93000a",
+            "on-tertiary-container": "#c58729",
+            "inverse-surface": "#32302e",
+            "error-container": "#ffdad6",
+            "surface-tint": "#765840",
+            "on-error": "#ffffff",
+            "on-secondary-fixed": "#00210c",
+            "surface-dim": "#ded9d5",
+            "on-tertiary": "#ffffff",
+            "outline": "#81756c",
+            "surface-bright": "#fef8f4",
+            "secondary": "#326942",
+            "surface-container": "#f2ede9",
+            "on-background": "#1d1b19",
+            "on-tertiary-fixed-variant": "#643f00",
+            "tertiary-fixed": "#ffddb5",
+            "background": "#fef8f4"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "gutter-mobile": "1rem",
+            "gutter": "1.5rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "margin-mobile": "1.25rem",
+            "space-lg": "1.5rem",
+            "margin": "2.5rem"
+          },
+          "fontFamily": {
+            "label-certificate": ["Inter"],
+            "display-hero": ["Playfair Display"],
+            "label-code-sm": ["JetBrains Mono"],
+            "label-telemetry": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "display-hero-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "headline-sm": ["Playfair Display"],
+            "body-lg": ["Inter"],
+            "headline-md": ["Playfair Display"]
+          },
+          "fontSize": {
+            "label-certificate": ["11px", {"lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "600"}],
+            "display-hero": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "label-code-sm": ["10px", {"lineHeight": "14px", "letterSpacing": "0.08em", "fontWeight": "500"}],
+            "label-telemetry": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+            "body-sm": ["12px", {"lineHeight": "18px", "fontWeight": "400"}],
+            "body-md": ["14px", {"lineHeight": "22px", "fontWeight": "400"}],
+            "display-hero-mobile": ["34px", {"lineHeight": "42px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "26px", "fontWeight": "400"}],
+            "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    
+    /* Parchment Guilloche Pattern Accent */
+    .guilloche-border {
+      background-image: radial-gradient(circle at 50% 50%, #3e2712 1px, transparent 1.5px);
+      background-size: 8px 8px;
+    }
+    
+    .cert-corner-corner {
+      position: relative;
+    }
+    .cert-corner-corner::before, .cert-corner-corner::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-color: #3e2712;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    .cert-corner-corner::before {
+      top: 4px;
+      left: 4px;
+      border-top: 1.5px solid;
+      border-left: 1.5px solid;
+    }
+    .cert-corner-corner::after {
+      bottom: 4px;
+      right: 4px;
+      border-bottom: 1.5px solid;
+      border-right: 1.5px solid;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex justify-center selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Mobile Viewport Shell (Strict 390px) -->
+<div class="w-full max-w-[390px] min-h-screen bg-background border-x border-outline-variant flex flex-col relative pb-28 shadow-xl">
+<!-- TopAppBar (From Shared Component Specification) -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none flex justify-between items-center w-full px-gutter-mobile py-space-sm sticky top-0 z-40">
+<button aria-label="Volver" class="flex items-center justify-center p-1 text-primary dark:text-inverse-primary hover:bg-surface-container dark:hover:bg-surface-container-high rounded transition-transform active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<div class="flex flex-col items-center">
+<span class="font-display-hero-mobile text-headline-sm tracking-tight text-primary dark:text-inverse-primary">SITRACAFE</span>
+<span class="font-label-code-sm text-[9px] tracking-widest text-on-surface-variant uppercase">Verificación Soberana</span>
+</div>
+<button aria-label="Escanear QR" class="flex items-center justify-center p-1 text-primary dark:text-inverse-primary hover:bg-surface-container dark:hover:bg-surface-container-high rounded transition-transform active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="qr_code_scanner">qr_code_scanner</span>
+</button>
+</header>
+<!-- Main Content Canvas: Editorial Digital Passport Certificate -->
+<main class="flex-1 px-space-md py-space-md flex flex-col gap-space-lg">
+<!-- 1. CERTIFICATE HEADER BLOCK -->
+<section class="cert-corner-corner relative bg-surface-container-low border border-primary-container/20 rounded-lg p-space-md shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<!-- Blockchain Verified Micro-Stamp -->
+<div class="inline-flex items-center gap-1 bg-surface-container-highest/60 border border-secondary/30 rounded px-1.5 py-0.5">
+<span class="material-symbols-outlined text-secondary text-[14px]" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-code-sm text-[9px] text-on-secondary-fixed-variant uppercase tracking-wider font-semibold">ID Verificado Blockchain</span>
+</div>
+<!-- Language / Security Micro-badge -->
+<div class="flex items-center gap-1 font-label-code-sm text-[10px] text-primary/70 border border-outline-variant/60 rounded px-1.5 py-0.5">
+<span class="material-symbols-outlined text-[13px]" data-icon="g_translate">g_translate</span>
+<span>ES · NIO</span>
+</div>
+</div>
+<div class="text-center pt-1 pb-2">
+<div class="font-label-certificate text-on-tertiary-container tracking-[0.2em] uppercase font-bold text-[10px] mb-0.5">Certificado Oficial de Cosecha</div>
+<h1 class="font-headline-md text-primary tracking-tight font-serif leading-tight">PASAPORTE DIGITAL DE LOTE</h1>
+<div class="flex items-center justify-center gap-2 mt-1">
+<div class="h-[1px] w-6 bg-outline-variant"></div>
+<p class="font-label-telemetry text-on-surface-variant text-[11px] font-medium tracking-wide">Nicaragua Innova 2026</p>
+<div class="h-[1px] w-6 bg-outline-variant"></div>
+</div>
+</div>
+<!-- Archival Subline & Security Guilloche Strip -->
+<div class="w-full h-[3px] guilloche-border opacity-30 my-1"></div>
+<div class="flex justify-between items-center text-[9px] font-label-code-sm text-on-surface-variant/80 px-1 pt-1">
+<span>SERIE: NIC-NS-2026</span>
+<span>ESTADO: AUDITADO &amp; LIBERADO</span>
+</div>
+</section>
+<!-- 2. ORIGIN & LOT CARD (Tarjeta de Origen) -->
+<section class="relative bg-surface-container-lowest border border-primary-container/25 rounded-lg p- space-md shadow-sm overflow-hidden">
+<!-- Subtle archival watermark accent -->
+<div class="absolute -right-6 -bottom-6 text-primary/[0.03] select-none pointer-events-none">
+<span class="material-symbols-outlined text-[140px]" data-icon="coffee">coffee</span>
+</div>
+<!-- Double Hairline Inner Frame -->
+<div class="border border-primary-container/10 rounded p-space-md relative z-10 flex flex-col gap-space-sm">
+<!-- Lot Tag Ribbon -->
+<div class="flex justify-between items-center border-b border-dashed border-outline-variant pb-2">
+<div>
+<span class="font-label-code-sm text-[10px] text-on-surface-variant uppercase tracking-wider block">Identificador de Lote</span>
+<span class="font-label-code-sm text-sm font-bold text-primary tracking-tight">#DIP-2026-042</span>
+</div>
+<div class="flex items-center gap-1 bg-surface-container-high border border-outline-variant/60 rounded px-2 py-1">
+<span class="material-symbols-outlined text-secondary text-[16px]" data-icon="psychiatry">psychiatry</span>
+<span class="font-label-certificate text-[10px] text-primary">MICRO-LOTE</span>
+</div>
+</div>
+<!-- Farm Identification -->
+<div class="pt-1">
+<div class="flex items-start justify-between">
+<div>
+<h2 class="font-headline-sm text-primary font-bold">Finca El Paraíso</h2>
+<div class="flex items-center gap-1 text-on-surface-variant mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="distance">distance</span>
+<p class="font-body-sm text-[12px]">Dipilto, Nueva Segovia, Nicaragua</p>
+</div>
+</div>
+<div class="w-9 h-9 rounded border border-outline-variant flex items-center justify-center bg-surface-container-low shrink-0 text-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="landscape">landscape</span>
+</div>
+</div>
+</div>
+<!-- 4 Metric Specs Grid -->
+<div class="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-outline-variant/50">
+<div class="bg-surface-container-low p-2 rounded border border-primary-container/10">
+<div class="flex items-center gap-1 text-on-surface-variant mb-0.5">
+<span class="material-symbols-outlined text-[13px] text-on-tertiary-container" data-icon="energy_savings_leaf">energy_savings_leaf</span>
+<span class="font-label-code-sm text-[9px] uppercase tracking-wider">Variedad</span>
+</div>
+<p class="font-label-certificate text-[13px] text-primary font-bold">Geisha</p>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-primary-container/10">
+<div class="flex items-center gap-1 text-on-surface-variant mb-0.5">
+<span class="material-symbols-outlined text-[13px] text-on-tertiary-container" data-icon="water_drop">water_drop</span>
+<span class="font-label-code-sm text-[9px] uppercase tracking-wider">Proceso</span>
+</div>
+<p class="font-label-certificate text-[13px] text-primary font-bold">Honey</p>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-primary-container/10">
+<div class="flex items-center gap-1 text-on-surface-variant mb-0.5">
+<span class="material-symbols-outlined text-[13px] text-on-tertiary-container" data-icon="height">height</span>
+<span class="font-label-code-sm text-[9px] uppercase tracking-wider">Altura</span>
+</div>
+<p class="font-label-certificate text-[13px] text-primary font-bold">1,450 msnm</p>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-primary-container/10">
+<div class="flex items-center gap-1 text-on-surface-variant mb-0.5">
+<span class="material-symbols-outlined text-[13px] text-on-tertiary-container" data-icon="scale">scale</span>
+<span class="font-label-code-sm text-[9px] uppercase tracking-wider">Peso Lote</span>
+</div>
+<p class="font-label-certificate text-[13px] text-primary font-bold">15 Quintales Oro</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. OFFICIAL CUP SCORE CARD (Tarjeta de Catación SCA) -->
+<section class="relative bg-surface-container-lowest border-2 border-primary-container/30 rounded-lg p-space-md shadow-sm">
+<!-- Certificate Laurel / Rosette Header -->
+<div class="flex flex-col items-center text-center">
+<!-- Gold Score Emblem with Laurel Motif -->
+<div class="relative w-28 h-28 my-1 flex items-center justify-center">
+<!-- Laurel Wreath decorative SVG background -->
+<svg class="absolute inset-0 w-full h-full text-on-tertiary-container" fill="none" stroke="currentColor" viewbox="0 0 100 100">
+<circle class="opacity-40" cx="50" cy="50" r="44" stroke-dasharray="3 2" stroke-width="1.5"></circle>
+<circle class="opacity-70" cx="50" cy="50" r="41" stroke-width="1"></circle>
+<!-- Laurel Sprigs Leaf Paths -->
+<path class="opacity-80" d="M 22 65 C 18 50, 24 32, 40 22 C 34 26, 30 36, 32 48 C 26 50, 23 58, 22 65 Z" fill="currentColor"></path>
+<path class="opacity-80" d="M 78 65 C 82 50, 76 32, 60 22 C 66 26, 70 36, 68 48 C 74 50, 77 58, 78 65 Z" fill="currentColor"></path>
+</svg>
+<!-- Inner Circle Badge -->
+<div class="relative z-10 w-20 h-20 rounded-full bg-surface-container-low border border-on-tertiary-container flex flex-col items-center justify-center shadow-inner">
+<span class="font-label-code-sm text-[9px] text-on-tertiary-container font-bold tracking-widest uppercase">PUNTAJE</span>
+<div class="font-display-hero-mobile text-[22px] font-bold text-primary leading-none mt-0.5">
+                88.5
+              </div>
+<div class="flex text-on-tertiary-container text-[11px] mt-0.5">
+<span class="material-symbols-outlined fill text-[11px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined fill text-[11px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined fill text-[11px]" data-icon="star" data-weight="fill" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-code-sm text-[8px] text-on-surface-variant font-semibold">SCA GRADE</span>
+</div>
+</div>
+<h3 class="font-headline-sm text-primary font-bold text-[18px] mt-1">Evaluación Externa Oficial</h3>
+<p class="font-label-telemetry text-on-surface-variant text-[11px]">Laboratorio Q-Grader Certificado No. 4921</p>
+</div>
+<!-- Sensory Tasting Notes Chips -->
+<div class="mt-4 pt-3 border-t border-outline-variant/60">
+<span class="font-label-code-sm text-[9px] text-on-surface-variant uppercase tracking-widest block text-center mb-2 font-semibold">Perfil Sensorial Homologado</span>
+<div class="flex flex-wrap justify-center gap-1.5">
+<span class="px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant text-primary font-body-sm text-[12px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary" data-icon="local_florist">local_florist</span> Jazmín
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant text-primary font-body-sm text-[12px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-on-tertiary-container" data-icon="flare">flare</span> Acidez cítrica brillante
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant text-primary font-body-sm text-[12px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary" data-icon="nutrition">nutrition</span> Durazno
+            </span>
+<span class="px-2.5 py-1 rounded bg-surface-container-high border border-outline-variant text-primary font-body-sm text-[12px] font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary-container" data-icon="cookie">cookie</span> Cuerpo meloso
+            </span>
+</div>
+</div>
+<!-- Verification Footnote -->
+<div class="mt-3 text-center bg-surface-container-low rounded p-1.5 border border-outline-variant/40">
+<p class="font-label-code-sm text-[9px] text-on-surface-variant leading-tight">
+<span class="material-symbols-outlined text-[10px] align-middle text-secondary" data-icon="check_circle">check_circle</span>
+            Evaluación realizada por catador certificado independiente bajo protocolo SCA.
+          </p>
+</div>
+</section>
+<!-- 4. VERIFIABLE IOT TELEMETRY CARD (Telemetría en Finca) -->
+<section class="bg-surface-container-lowest border border-primary-container/20 rounded-lg p-space-md shadow-sm">
+<!-- Header with Live Pulsating Dot -->
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-secondary text-[18px]" data-icon="sensors">sensors</span>
+<h3 class="font-label-certificate text-primary text-[11px] font-bold tracking-normal uppercase">Telemetría en Finca</h3>
+</div>
+<div class="flex items-center gap-1.5 bg-secondary-container/40 border border-secondary/30 rounded-full px-2 py-0.5">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-label-code-sm text-[9px] text-on-secondary-fixed-variant font-bold">IoT ACTIVO</span>
+</div>
+</div>
+<!-- Metric Readout Tiles -->
+<div class="grid grid-cols-3 gap-1.5 mb-3">
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/50 text-center">
+<span class="font-label-code-sm text-[8px] text-on-surface-variant uppercase tracking-wider block">pH Ferment.</span>
+<span class="font-label-telemetry text-sm font-bold text-primary mt-0.5 block">4.3</span>
+<span class="font-label-code-sm text-[8px] text-secondary font-semibold">Óptimo</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/50 text-center">
+<span class="font-label-code-sm text-[8px] text-on-surface-variant uppercase tracking-wider block">Temp. Máx.</span>
+<span class="font-label-telemetry text-sm font-bold text-primary mt-0.5 block">36.8 °C</span>
+<span class="font-label-code-sm text-[8px] text-on-surface-variant">&lt; 40 °C</span>
+</div>
+<div class="bg-surface-container-low p-2 rounded border border-outline-variant/50 text-center">
+<span class="font-label-code-sm text-[8px] text-on-surface-variant uppercase tracking-wider block">Humedad</span>
+<span class="font-label-telemetry text-sm font-bold text-primary mt-0.5 block">11.2%</span>
+<span class="font-label-code-sm text-[8px] text-secondary font-semibold">Grano Oro</span>
+</div>
+</div>
+<!-- SVG Visual Trend Line / Mini Curve Graph: Fermentation Drop (48h) -->
+<div class="bg-surface-container-low p-2.5 rounded border border-outline-variant/60">
+<div class="flex justify-between items-center text-[9px] font-label-code-sm text-on-surface-variant mb-1">
+<span>Curva de Descenso pH (Tanque 02)</span>
+<span class="text-secondary font-bold">48 Horas Auditadas</span>
+</div>
+<div class="relative w-full h-20 pt-1">
+<!-- Grid Lines -->
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 300 70">
+<!-- Horizontal guidelines -->
+<line stroke="#d3c4ba" stroke-dasharray="2 3" stroke-width="0.7" x1="0" x2="300" y1="10" y2="10"></line>
+<line stroke="#d3c4ba" stroke-dasharray="2 3" stroke-width="0.7" x1="0" x2="300" y1="35" y2="35"></line>
+<line stroke="#d3c4ba" stroke-dasharray="2 3" stroke-width="0.7" x1="0" x2="300" y1="60" y2="60"></line>
+<!-- Safe fermentation area fill -->
+<path d="M 0 15 Q 75 18, 150 32 T 300 52 L 300 70 L 0 70 Z" fill="#326942" fill-opacity="0.08"></path>
+<!-- Fermentation curve line -->
+<path d="M 0 15 Q 75 18, 150 32 T 300 52" fill="none" stroke="#326942" stroke-linecap="round" stroke-width="2.5"></path>
+<!-- Key Measurement Pins -->
+<!-- Point 0h -->
+<circle cx="0" cy="15" fill="#261302" r="3" stroke="#FAF8F5" stroke-width="1.5"></circle>
+<!-- Point 24h -->
+<circle cx="150" cy="32" fill="#326942" r="3.5" stroke="#FAF8F5" stroke-width="1.5"></circle>
+<!-- Point 48h (Final) -->
+<circle cx="298" cy="52" fill="#C88A2C" r="4" stroke="#FAF8F5" stroke-width="1.5"></circle>
+</svg>
+</div>
+<div class="flex justify-between items-center text-[9px] font-label-code-sm text-on-surface-variant/80 mt-1">
+<span>0h (pH 5.8)</span>
+<span>24h (pH 4.9)</span>
+<span class="font-bold text-primary">48h (pH 4.3 Fin)</span>
+</div>
+</div>
+<div class="flex items-center justify-between text-[9px] font-label-code-sm text-on-surface-variant/70 mt-2 px-1">
+<span>Firmado: Colector Local #04</span>
+<span>Hash: 0x9f3b...d28a</span>
+</div>
+</section>
+<!-- 5. REGULATORY SEAL (Sello Regulatorio EUDR) -->
+<section class="bg-secondary text-surface rounded-lg p-space-md border border-secondary/50 shadow-md relative overflow-hidden">
+<!-- Botanical Security Watermark SVG in Corner -->
+<div class="absolute -right-3 -top-3 text-secondary-container/20 pointer-events-none">
+<span class="material-symbols-outlined text-[90px]" data-icon="public">public</span>
+</div>
+<div class="relative z-10 flex flex-col gap-2">
+<!-- Compliance Banner & Leaf Satellite Tag -->
+<div class="flex items-start gap-2.5">
+<div class="w-8 h-8 rounded bg-surface/10 border border-surface/20 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-secondary-fixed text-[20px]" data-icon="satellite_alt">satellite_alt</span>
+</div>
+<div>
+<span class="inline-block font-label-code-sm text-[9px] bg-secondary-fixed text-on-secondary-fixed font-bold px-1.5 py-0.5 rounded uppercase tracking-wider mb-0.5">
+                Regulación EUDR
+              </span>
+<h3 class="font-headline-sm text-surface text-[14px] leading-snug font-bold">
+                Conforme Normativa Europea EUDR
+              </h3>
+<p class="font-body-sm text-secondary-fixed-dim text-[11px] mt-0.5">
+                Parcela satelitalmente auditada · Libre de deforestación post-2020.
+              </p>
+</div>
+</div>
+<!-- Geolocation Coordinates Box -->
+<div class="mt-1 bg-primary/20 backdrop-blur-sm border border-surface/15 rounded p-2 flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary-fixed text-[16px]" data-icon="pin_drop">pin_drop</span>
+<div>
+<span class="font-label-code-sm text-[8px] text-surface/70 uppercase block">Polígono Registrado</span>
+<span class="font-label-telemetry text-[11px] text-surface font-semibold">Dipilto (13.728° N, 86.612° W)</span>
+</div>
+</div>
+<span class="font-label-code-sm text-[9px] text-secondary-fixed border border-secondary-fixed/40 px-1.5 py-0.5 rounded">
+              VERIFICADO
+            </span>
+</div>
+</div>
+</section>
+<!-- 6. ACTIONS & FOOTER -->
+<section class="flex flex-col gap-space-sm pt-1">
+<!-- Primary Action: PDF Export -->
+<button class="w-full bg-primary-container hover:bg-tertiary text-surface font-label-certificate py-3 px-space-md rounded transition-transform active:scale-95 duration-150 flex items-center justify-center gap-2 shadow-sm border border-primary">
+<span class="material-symbols-outlined text-[18px]" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="tracking-widest uppercase">Descargar Certificado PDF</span>
+</button>
+<!-- Secondary Action: Share Lot -->
+<button class="w-full bg-transparent hover:bg-surface-container text-primary font-label-certificate py-2.5 px-space-md rounded border border-primary/30 transition-transform active:scale-95 duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="share">share</span>
+<span class="tracking-widest uppercase">Compartir Lote</span>
+</button>
+<!-- Cryptographic Ledger Watermark Footer -->
+<footer class="mt-4 pt-3 border-t border-outline-variant/50 text-center flex flex-col items-center gap-1">
+<div class="flex items-center gap-1.5 text-on-surface-variant/80">
+<span class="material-symbols-outlined text-[14px] text-secondary" data-icon="verified_user">verified_user</span>
+<span class="font-label-code-sm text-[9px] uppercase tracking-wider font-semibold">Trazabilidad Soberana</span>
+</div>
+<p class="font-label-code-sm text-[9px] text-on-surface-variant/70">
+            Equipo Lubanic · Taller Luban · Protocolo Cero Alteración
+          </p>
+<div class="font-label-code-sm text-[8px] text-outline mt-0.5 tracking-tight">
+            BLCK-ID: 7c4e-91a2-44df-9002-nic-2026
+          </div>
+</footer>
+</section>
+</main>
+<!-- BottomNavBar (From Shared Component JSON) -->
+<!-- Destination Rule: Top-level passport document, Passport tab is active -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-gutter-mobile py-space-xs bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-md dark:shadow-none max-w-[390px] mx-auto right-0">
+<!-- Destination 1: Passport (ACTIVE) -->
+<a class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-fixed dark:text-inverse-primary rounded-lg px-space-md py-space-xs hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-transform active:scale-95 duration-150" href="#passport">
+<span class="material-symbols-outlined text-[20px] text-surface" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-code-sm text-[10px] text-surface font-semibold">Passport</span>
+</a>
+<!-- Destination 2: Cupping -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-space-md py-space-xs hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-inverse-primary transition-transform active:scale-95 duration-150" href="#cupping">
+<span class="material-symbols-outlined text-[20px]" data-icon="coffee">coffee</span>
+<span class="font-label-code-sm text-[10px]">Cupping</span>
+</a>
+<!-- Destination 3: Telemetry -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-space-md py-space-xs hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-inverse-primary transition-transform active:scale-95 duration-150" href="#telemetry">
+<span class="material-symbols-outlined text-[20px]" data-icon="sensors">sensors</span>
+<span class="font-label-code-sm text-[10px]">Telemetry</span>
+</a>
+<!-- Destination 4: Origin -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant px-space-md py-space-xs hover:bg-surface-container-high dark:hover:bg-surface-container-highest hover:text-primary dark:hover:text-inverse-primary transition-transform active:scale-95 duration-150" href="#origin">
+<span class="material-symbols-outlined text-[20px]" data-icon="public">public</span>
+<span class="font-label-code-sm text-[10px]">Origin</span>
+</a>
+</nav>
+</div>
+</body></html>
