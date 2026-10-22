@@ -17,7 +17,7 @@
 #set page(
   paper: "presentation-16-9",
   fill: rgb("#FAF8F5"),
-  margin: (x: 2cm, top: 1.2cm, bottom: 1.0cm),
+  margin: (x: 1.8cm, top: 1.1cm, bottom: 0.9cm),
   header: none,
   footer: context [
     #v(-0.3em)
@@ -25,10 +25,10 @@
     #grid(
       columns: (1fr, 1fr),
       align: (left, right),
-      text(size: 9.5pt, fill: c-muted, [
+      text(size: 9pt, fill: c-muted, [
         *SITRACAFE* | Equipo Lubanic · Rally Nicaragua Innova 2026
       ]),
-      text(size: 9.5pt, fill: c-muted, [
+      text(size: 9pt, fill: c-muted, [
         #counter(page).display("1 / 1", both: true)
       ])
     )
@@ -39,31 +39,31 @@
 #let card(title: none, badge: none, accent: c-green, fill: c-card-bg, body) = {
   rect(
     width: 100%,
-    radius: 7pt,
+    radius: 6pt,
     fill: fill,
     stroke: 1pt + accent.lighten(70%),
-    inset: (x: 12pt, y: 10pt),
+    inset: (x: 10pt, y: 8pt),
     outset: 0pt,
     [
       #if title != none [
         #grid(
           columns: (1fr, auto),
           align: (left + horizon, right + horizon),
-          text(weight: "bold", size: 12.5pt, fill: accent, title),
+          text(weight: "bold", size: 11.5pt, fill: accent, title),
           if badge != none {
             rect(
               fill: accent,
               radius: 4pt,
-              inset: (x: 5pt, y: 2.5pt),
-              text(fill: white, size: 8.5pt, weight: "bold", badge)
+              inset: (x: 4.5pt, y: 2pt),
+              text(fill: white, size: 8pt, weight: "bold", badge)
             )
           }
         )
-        #v(3pt)
+        #v(2.5pt)
         #line(length: 100%, stroke: 0.5pt + accent.lighten(80%))
-        #v(3pt)
+        #v(2.5pt)
       ]
-      #text(size: 10.5pt, body)
+      #text(size: 9.8pt, body)
     ]
   )
 }
@@ -74,13 +74,35 @@
     radius: 6pt,
     fill: accent.lighten(94%),
     stroke: 1pt + accent.lighten(60%),
-    inset: (x: 10pt, y: 7pt),
+    inset: (x: 8pt, y: 6pt),
     align(center)[
-      #text(size: 22pt, weight: "bold", fill: accent, value) \
+      #text(size: 20pt, weight: "bold", fill: accent, value) \
       #v(-2pt)
-      #text(size: 9.5pt, weight: "bold", fill: c-dark, label)
+      #text(size: 9pt, weight: "bold", fill: c-dark, label)
     ]
   )
+}
+
+// Helper para teléfonos móviles con captura
+#let phone-mockup(img-path, caption: none, height: 10.4cm) = {
+  align(center)[
+    #rect(
+      radius: 8pt,
+      stroke: 1.5pt + c-coffee.lighten(40%),
+      fill: white,
+      inset: 2pt,
+      outset: 0pt,
+      [
+        #image(img-path, height: height, fit: "contain")
+        #if caption != none [
+          #v(1pt)
+          #rect(fill: c-coffee-light, radius: 3pt, inset: (x: 4pt, y: 1.5pt))[
+            #text(size: 7.5pt, weight: "bold", fill: c-coffee, caption)
+          ]
+        ]
+      ]
+    )
+  ]
 }
 
 // Datos de demostración concatenados para el código QR
@@ -145,10 +167,10 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 // ==========================================
 // SLIDE 2: EL DILEMA DEL CAFICULTOR
 // ==========================================
-#text(size: 22pt, weight: "bold", fill: c-coffee)[El Gran Reto del Café de Especialidad] \
-#text(size: 12pt, fill: c-muted)[En café de exportación, el comprador no compra a granel: paga por la historia técnica del lote.]
+#text(size: 21pt, weight: "bold", fill: c-coffee)[El Gran Reto del Café de Especialidad] \
+#text(size: 11.5pt, fill: c-muted)[En café de exportación, el comprador no compra a granel: paga por la historia técnica del micro-lote.]
 
-#v(0.5em)
+#v(0.4em)
 
 #grid(
   columns: (1fr, 1fr, 1fr),
@@ -158,7 +180,7 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
   metric-badge([EUDR], [Normativa europea exige trazabilidad sin deforestación], accent: c-green),
 )
 
-#v(0.6em)
+#v(0.5em)
 
 #grid(
   columns: (1fr, 1fr),
@@ -171,7 +193,7 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
   card(title: [La Exigencia Internacional], accent: c-coffee, fill: c-coffee-light)[
     - *Compradores exigentes:* Demandan datos auditables de origen, altitud y curvas de proceso.
     - *Normativas de exportación:* La UE (EUDR) exige parcelas libres de deforestación.
-    - *Barrera tecnológica:* Software como Cropster cobra en dólares y exige internet permanente.
+    - *Barrera tecnológica:* Software comercial cobra tarifas prohibitivas en dólares y exige internet permanente.
   ]
 )
 
@@ -180,48 +202,48 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 // ==========================================
 // SLIDE 3: LA SOLUCIÓN SITRACAFE
 // ==========================================
-#text(size: 22pt, weight: "bold", fill: c-coffee)[Nuestra Solución: SITRACAFE] \
-#text(size: 12pt, fill: c-muted)[Ecosistema IoT soberano y accesible diseñado para la realidad del campo nicaragüense.]
+#text(size: 21pt, weight: "bold", fill: c-coffee)[Nuestra Solución: Arquitectura Offline-First] \
+#text(size: 11.5pt, fill: c-muted)[Ecosistema IoT soberano y accesible diseñado para la realidad del campo nicaragüense.]
 
-#v(0.5em)
+#v(0.4em)
 
 #grid(
   columns: (1fr, 1fr, 1fr),
   gutter: 1em,
-  card(title: [1. Sensores en Campo], badge: [ESP32], accent: c-green)[
+  card(title: [1. Sensores en Campo], badge: [ESP32 C/C++], accent: c-green)[
     Dispositivos autónomos en patio y pilas de beneficio:
     - *pH y temperatura* en fermentación.
-    - *Curva de secado* y humedad del grano.
-    - *Visor local:* Productor consulta en patio sin internet.
+    - *Temperatura y humedad* en carpa solar.
+    - *Conexión BLE / Wi-Fi AP local* (2.4 GHz libre de licencias TELCOR).
   ],
   card(title: [2. Colector & Gateway], badge: [Store & Forward], accent: c-coffee)[
     Dispositivo concentrador en la red local de la finca:
-    - *Colector dedicado:* Recibe lecturas por BLE / Wi-Fi local.
-    - *Tolerancia a latencia:* Envío por lotes asíncronos.
-    - *Cero pérdida:* Sincronización asíncrona segura.
+    - *Colector dedicado:* Guarda miles de lecturas en memoria flash local.
+    - *Tolerancia a latencia:* Envío por lotes asíncronos cuando hay enlace disponible.
+    - *Cero pérdida de datos:* Resguardo seguro en frío.
   ],
-  card(title: [3. Soberanía de Datos], badge: [100% Abierto], accent: c-gold)[
+  card(title: [3. Soberanía de Datos], badge: [100% Soberano], accent: c-gold)[
     Propiedad absoluta para cooperativas y productores:
     - Sin licencias extranjeras ni tarifas en divisas.
-    - Pasaporte digital accesible a un toque.
-    - Traduce telemetría física en puntuación SCA.
+    - Pasaporte digital accesible a un toque vía QR.
+    - Registro inalterable respaldado por Hash SHA-256.
   ]
 )
 
-#v(0.6em)
+#v(0.5em)
 #rect(
   width: 100%,
   fill: c-green-light,
   radius: 6pt,
   stroke: 1pt + c-green.lighten(60%),
-  inset: (x: 12pt, y: 7pt),
+  inset: (x: 12pt, y: 6pt),
   [
     #grid(
       columns: (auto, 1fr),
       gutter: 0.8em,
       align: horizon,
-      text(size: 15pt)[🌱],
-      text(size: 10.5pt, fill: c-green, weight: "bold")[
+      text(size: 14pt)[🌱],
+      text(size: 10pt, fill: c-green, weight: "bold")[
         "Democratizar la tecnología para que el pequeño caficultor defienda el precio justo de su café con datos científicos inalterables."
       ]
     )
@@ -231,100 +253,83 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 #pagebreak()
 
 // ==========================================
-// SLIDE 4: EL VIAJE DEL GRANO (4 PASOS)
+// SLIDE 4: VISOR LOCAL DEL PRODUCTOR (OFFLINE)
 // ==========================================
-#text(size: 22pt, weight: "bold", fill: c-coffee)[El Viaje del Grano: Trazabilidad Extremo a Extremo] \
-#text(size: 12pt, fill: c-muted)[Cómo viajan los datos desde la mata de café hasta la taza del consumidor final.]
+#text(size: 20pt, weight: "bold", fill: c-coffee)[Visor Local de Finca: Monitoreo en Patio (Offline)] \
+#text(size: 11pt, fill: c-muted)[El productor audita fermentación y secado conectándose al Wi-Fi del ESP32 sin consumir internet ni saldo móvil.]
 
-#v(0.5em)
+#v(0.25em)
 
 #grid(
-  columns: (1fr, 1fr, 1fr, 1fr),
+  columns: (1.1fr, 0.72fr, 0.72fr),
   gutter: 0.8em,
-  card(title: [Paso 1: Finca], badge: [Origen], accent: c-green)[
-    #align(center)[#text(size: 20pt)[⛰️]]
-    #v(-2pt)
-    - Registro de parcela georreferenciada.
-    - Origen libre de deforestación (EUDR).
-    - Variedad botánica y altura.
+  [
+    #card(title: [Control en Pila de Fermentación], badge: [Semáforo], accent: c-green)[
+      - *Punto óptimo de lavado:* Alerta al alcanzar pH 4.3 (rango 4.2 - 4.5).
+      - *Cero defectos:* Evita la sobrefermentación ácida destructiva.
+      - *Cinética en tiempo real:* Curva de acidez de últimas 36 horas.
+    ]
+    #v(0.3em)
+    #card(title: [Protección Térmica en Secador], badge: [< 40 °C], accent: c-coffee)[
+      - *Alarma de secado:* Monitorea que no exceda 40 °C críticos en masa.
+      - *Meta de humedad:* 11% a 12% para grano pergamino exportable.
+    ]
+    #v(0.3em)
+    #card(title: [Memoria Store & Forward], badge: [Hub Local], accent: c-gold)[
+      - *1,840 lecturas guardadas* en memoria flash del colector local.
+      - *Sincronización en cola:* Descarga automática hacia el Gateway.
+    ]
   ],
-  card(title: [Paso 2: Beneficiado], badge: [Sensores], accent: c-coffee)[
-    #align(center)[#text(size: 20pt)[🧪]]
-    #v(-2pt)
-    - Monitoreo de pH (4.2 - 4.5).
-    - Control térmico ($< 40 °C$).
-    - Visor local para alertas en patio.
+  [
+    #phone-mockup("assets/mockup-visor-fase1.png", caption: [Pila: pH Óptimo 4.3], height: 9.1cm)
   ],
-  card(title: [Paso 3: Colector], badge: [Gateway], accent: c-gold)[
-    #align(center)[#text(size: 20pt)[🏢]]
-    #v(-2pt)
-    - Colector resguarda tramas en frío.
-    - Gateway sincroniza por lotes.
-    - Datos consolidados a cooperativas.
-  ],
-  card(title: [Paso 4: Mercado], badge: [Pasaporte QR], accent: rgb("#0D6EFD"))[
-    #align(center)[#text(size: 20pt)[📦]]
-    #v(-2pt)
-    - QR dinámico en sacos y empaques.
-    - Tostadores auditan el lote.
-    - Cierre de precio premium verificado.
+  [
+    #phone-mockup("assets/mockup-visor-fase2.png", caption: [Secador Solar & Hub], height: 9.1cm)
   ]
 )
-
-#v(0.5em)
-#align(center)[
-  #rect(fill: c-coffee-light, radius: 4pt, inset: (x: 10pt, y: 5pt))[
-    #text(size: 10.5pt, fill: c-coffee, weight: "bold")[
-      Finca (Sensores) $arrow.r$ Colector Local $arrow.r$ Gateway Asíncrono $arrow.r$ Nube $arrow.r$ Pasaporte QR
-    ]
-  ]
-]
 
 #pagebreak()
 
 // ==========================================
-// SLIDE 5: DASHBOARD PARA ORGANIZACIONES
+// SLIDE 5: PORTAL DE COOPERATIVA (DESKTOP)
 // ==========================================
-#text(size: 22pt, weight: "bold", fill: c-coffee)[Facilitación de Datos a Cooperativas e Instituciones] \
-#text(size: 12pt, fill: c-muted)[CONATRADEC, cooperativas y exportadores disponen de información consolidada y auditable.]
+#text(size: 20pt, weight: "bold", fill: c-coffee)[Portal de Cooperativa: Acopio y Validación EUDR] \
+#text(size: 11pt, fill: c-muted)[Consolidación institucional de micro-lotes, verificación satelital de no-deforestación y etiquetado QR.]
 
-#v(0.5em)
+#v(0.25em)
 
 #grid(
-  columns: (1.2fr, 1fr),
-  gutter: 1.2em,
+  columns: (0.95fr, 1.85fr),
+  gutter: 0.8em,
   [
-    #card(title: [Panel de Control Institucional], badge: [Vista Cooperativa], accent: c-green)[
-      #rect(width: 100%, fill: rgb("#F8F9FA"), stroke: 0.5pt + c-border, radius: 6pt, inset: 9pt)[
-        #grid(
-          columns: (1fr, 1fr),
-          gutter: 0.8em,
-          [
-            #text(size: 9.5pt, fill: c-muted)[Cooperativa Piloto] \
-            #text(size: 11pt, weight: "bold", fill: c-coffee)[Dipilto R.L. (3 fincas)]
-          ],
-          [
-            #text(size: 9.5pt, fill: c-muted)[Lotes Registrados] \
-            #text(size: 11pt, weight: "bold", fill: c-green)[48 Lotes Validados]
-          ]
-        )
-        #v(4pt)
-        #line(length: 100%, stroke: 0.5pt + c-border)
-        #v(4pt)
-        #text(size: 9.5pt, weight: "bold", fill: c-coffee)[Monitoreo Histórico y Consolidado de Lotes:]
-        #v(2pt)
-        - Curvas de secado térmico estables en 94% de micro-lotes.
-        - 0 incidentes de sobre-fermentación detectados este ciclo.
-        - Georreferenciación completa de parcelas aptas para Europa.
-      ]
+    #card(title: [Recepción y Consolidación], badge: [Almacén], accent: c-coffee)[
+      - *485.6 Quintales acopiados* con trazabilidad completa.
+      - *94.8% consistencia técnica:* Curvas térmicas y biológicas validadas en rango óptimo.
+    ]
+    #v(0.3em)
+    #card(title: [Verificación Satelital EUDR], badge: [100% Cero Deforestación], accent: c-green)[
+      - Polígonos georreferenciados auditados contra deforestación post-2020 para la Unión Europea.
+      - Altura certificada: 1,420 msnm (Dipilto).
+    ]
+    #v(0.3em)
+    #card(title: [Etiquetado QR para GrainPro], badge: [Exportación], accent: c-gold)[
+      - Impresión directa de etiquetas térmicas con QR inalterable por saco de 69 kg.
+      - Código criptográfico auditado SHA-256.
     ]
   ],
   [
-    #card(title: [Beneficios para el Sector], accent: c-coffee)[
-      - *Soberanía Nacional:* Base de datos propia de la caficultura nicaragüense sin fuga ni cobros en divisas.
-      - *Apertura de Mercados:* Facilita trámites aduaneros y certificados de exportación sin deforestación.
-      - *Garantía Q-Grader:* Respaldo empírico para las notas sensoriales de catación.
-      - *Financiamiento Justo:* Cooperativas evalúan riesgo con historial real de cosechas.
+    #align(center)[
+      #rect(
+        radius: 6pt,
+        stroke: 1.2pt + c-coffee.lighten(40%),
+        fill: white,
+        inset: 2pt,
+        [
+          #image("assets/mockup-cooperativa.png", height: 9.1cm, fit: "contain")
+        ]
+      )
+      #v(1.5pt)
+      #text(size: 7.2pt, fill: c-muted)[*Portal Desktop (Tauri/Vite)* · Recepción de Micro-lotes en Cooperativa Dipilto R.L.]
     ]
   ]
 )
@@ -334,94 +339,80 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 // ==========================================
 // SLIDE 6: PASAPORTE DIGITAL EN VIVO (QR)
 // ==========================================
-#text(size: 22pt, weight: "bold", fill: c-coffee)[El Pasaporte Digital en el Empaque] \
-#text(size: 12pt, fill: c-muted)[El comprador escanea el código en el saco y accede a la historia y telemetría del café.]
+#text(size: 20pt, weight: "bold", fill: c-coffee)[El Pasaporte Digital en el Empaque Final] \
+#text(size: 11pt, fill: c-muted)[El comprador escanea el código en el saco y audita el origen, la calidad certificada SCA y la telemetría.]
 
-#v(0.3em)
+#v(0.25em)
 
 #grid(
-  columns: (1.1fr, 0.75fr, 0.85fr),
-  gutter: 0.8em,
+  columns: (0.85fr, 0.72fr, 0.72fr, 0.85fr),
+  gutter: 0.6em,
   [
     #rect(
       width: 100%,
       fill: white,
-      radius: 7pt,
-      stroke: 1.5pt + c-gold,
-      inset: 10pt,
+      radius: 6pt,
+      stroke: 1.2pt + c-gold,
+      inset: 8pt,
       [
         #grid(
           columns: (1fr, auto),
           align: (left + horizon, right + horizon),
-          text(size: 12.5pt, weight: "bold", fill: c-coffee)[Lote Demo: #text(fill: c-gold)[#raw("#DIP-2026-042")]],
-          rect(fill: c-green, radius: 4pt, inset: (x: 4pt, y: 2pt), text(fill: white, size: 8pt, weight: "bold")[SCA 88.5])
+          text(size: 11.5pt, weight: "bold", fill: c-coffee)[Lote: #text(fill: c-gold)[#raw("#DIP-2026-042")]],
+          rect(fill: c-green, radius: 3pt, inset: (x: 4pt, y: 1.5pt), text(fill: white, size: 7.5pt, weight: "bold")[SCA 88.5])
         )
-        #v(2pt)
+        #v(1.5pt)
         #line(length: 100%, stroke: 0.5pt + c-gold.lighten(50%))
+        #v(1.5pt)
+        
+        #text(size: 8pt, fill: c-muted)[Finca & Productor] \
+        #text(size: 9pt, weight: "bold")[Finca El Paraíso] \
+        #text(size: 8pt)[Mateo Gutiérrez · Dipilto]
+        
         #v(2pt)
+        #text(size: 8pt, fill: c-muted)[Variedad / Proceso] \
+        #text(size: 9pt, weight: "bold")[Geisha Honey · 1,450 msnm]
         
-        #grid(
-          columns: (1fr, 1fr),
-          gutter: 0.5em,
-          [
-            #text(size: 8.5pt, fill: c-muted)[Origen] \
-            #text(size: 9.5pt, weight: "bold")[Finca El Paraíso] \
-            #text(size: 8.5pt)[Dipilto, N. Segovia]
-          ],
-          [
-            #text(size: 8.5pt, fill: c-muted)[Variedad / Proceso] \
-            #text(size: 9.5pt, weight: "bold")[Geisha · Honey] \
-            #text(size: 8.5pt)[1,450 msnm]
-          ]
-        )
-        
-        #v(3pt)
+        #v(2.5pt)
         #line(length: 100%, stroke: 0.5pt + c-border)
         #v(2pt)
         
-        #text(size: 9pt, weight: "bold", fill: c-green)[Telemetría IoT en Finca:]
+        #text(size: 8.5pt, weight: "bold", fill: c-green)[Garantías Técnicas:]
         #v(1pt)
-        #text(size: 8.5pt)[
-          - *pH fermentación:* 4.3 (Óptimo). \
-          - *Temp. máx. secado:* 36.8 °C ($< 40 °C$). \
-          - *Humedad grano:* 11.2% (Exportable). \
-          - *EUDR:* Parcela sin deforestación.
+        #text(size: 8pt)[
+          - *Catación:* 88.5 pts por Q-Lab.
+          - *pH Fermentación:* 4.3 Óptimo.
+          - *Temp. Máx Secado:* 36.8 °C.
+          - *EUDR:* Cero deforestación.
         ]
       ]
     )
   ],
   [
-    #align(center)[
-      #rect(
-        radius: 8pt,
-        stroke: 1.5pt + c-coffee.lighten(50%),
-        fill: white,
-        inset: 2pt,
-        [
-          #image("assets/mockup-pasaporte-calidad.png", height: 10.6cm, fit: "contain")
-        ]
-      )
-    ]
+    #phone-mockup("assets/mockup-pasaporte-calidad.png", caption: [Origen & SCA 88.5], height: 9.1cm)
+  ],
+  [
+    #phone-mockup("assets/mockup-pasaporte-telemetria.png", caption: [Curva IoT & EUDR], height: 9.1cm)
   ],
   [
     #align(center)[
       #rect(
         fill: white,
-        radius: 7pt,
+        radius: 6pt,
         stroke: 1pt + c-border,
-        inset: (x: 8pt, y: 7pt),
+        inset: (x: 7pt, y: 6pt),
         [
-          #qrcode(lote-qr-data, width: 3.2cm)
+          #qrcode(lote-qr-data, width: 3.0cm)
           #v(2pt)
-          #text(size: 9.5pt, weight: "bold", fill: c-coffee)[¡Escanea con tu cámara!] \
-          #text(size: 7.5pt, fill: c-muted)[Prueba la auditoría del lote] \
+          #text(size: 9pt, weight: "bold", fill: c-coffee)[¡Escanea con tu teléfono!] \
+          #text(size: 7.2pt, fill: c-muted)[Auditoría del lote en tiempo real] \
           #v(2pt)
           #rect(
             fill: c-gold-light,
             stroke: 0.5pt + c-gold,
             radius: 3pt,
-            inset: (x: 5pt, y: 2pt),
-            text(size: 7pt, weight: "bold", fill: c-coffee)[Modo Demo: Ficha estática]
+            inset: (x: 4pt, y: 2pt),
+            text(size: 6.8pt, weight: "bold", fill: c-coffee)[Modo Demo: Ficha Soberana]
           )
         ]
       )
@@ -434,10 +425,10 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
 // ==========================================
 // SLIDE 7: IMPACTO Y EQUIPO LUBANIC
 // ==========================================
-#text(size: 22pt, weight: "bold", fill: c-coffee)[Impacto Proyectado y Equipo Lubanic] \
-#text(size: 12pt, fill: c-muted)[Prototipo viable, escalable y con visión de país para la caficultura nicaragüense.]
+#text(size: 21pt, weight: "bold", fill: c-coffee)[Impacto Proyectado, Presupuesto y Equipo] \
+#text(size: 11.5pt, fill: c-muted)[Prototipo viable, escalable y con visión de país para la caficultura nicaragüense.]
 
-#v(0.5em)
+#v(0.4em)
 
 #grid(
   columns: (1fr, 1fr, 1fr),
@@ -447,7 +438,7 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
   metric-badge([6 Meses], [Ruta de desarrollo e implementación en campo], accent: c-coffee),
 )
 
-#v(0.6em)
+#v(0.5em)
 
 #card(title: [Equipo Multidisciplinario Lubanic · Taller Luban], accent: c-coffee)[
   #grid(
@@ -462,19 +453,19 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
       - *Mauro Santiago Espinoza Rodríguez:* Manufactura Industrial
     ]
   )
-  #v(3pt)
+  #v(2.5pt)
   #line(length: 100%, stroke: 0.5pt + c-border)
   #v(2pt)
   #align(center)[
-    #text(size: 10pt, fill: c-muted)[
+    #text(size: 9.5pt, fill: c-muted)[
       *Tutoría:* Verónica Josefa Meza Barahona · *SITRACAFE 2026*
     ]
   ]
 ]
 
-#v(0.6em)
+#v(0.5em)
 #align(center)[
-  #text(size: 14pt, weight: "bold", fill: c-green)[
+  #text(size: 13pt, weight: "bold", fill: c-green)[
     ¡Muchas gracias por visitar nuestro stand!
   ]
 ]
