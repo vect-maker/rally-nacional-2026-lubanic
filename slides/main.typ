@@ -230,25 +230,21 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
   ]
 )
 
-#v(0.5em)
-#rect(
-  width: 100%,
-  fill: c-green-light,
-  radius: 6pt,
-  stroke: 1pt + c-green.lighten(60%),
-  inset: (x: 12pt, y: 6pt),
-  [
-    #grid(
-      columns: (auto, 1fr),
-      gutter: 0.8em,
-      align: horizon,
-      text(size: 14pt)[🌱],
-      text(size: 10pt, fill: c-green, weight: "bold")[
-        "Democratizar la tecnología para que el pequeño caficultor defienda el precio justo de su café con datos científicos inalterables."
-      ]
-    )
-  ]
-)
+#v(0.3em)
+#align(center)[
+  #rect(
+    width: 100%,
+    fill: white,
+    radius: 6pt,
+    stroke: 1pt + c-border,
+    inset: (x: 8pt, y: 4pt),
+    [
+      #image("assets/infra-flow.png", height: 3.1cm, fit: "contain")
+      #v(1pt)
+      #text(size: 7.2pt, fill: c-muted)[*Flujo de Red Soberano:* Sensores BLE $arrow.r$ Colector Local Hub $arrow.r$ Gateway Asíncrono (Store & Forward) $arrow.r$ Nube Axum (Rust)]
+    ]
+  )
+]
 
 #pagebreak()
 

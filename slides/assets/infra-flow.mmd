@@ -1,0 +1,11 @@
+flowchart LR
+    Sensores["Nodos Sensores<br/>(ESP32 en Finca)"] -->|"BLE / Wi-Fi"| Colector["Colector Local<br/>(Hub de Datos)"]
+    Colector -->|"Red Local"| Gateway["Gateway de Enlace<br/>(Módulo WAN)"]
+    Gateway -->|"Store & Forward<br/>(Asíncrono)"| Cloud[("Servidor Cloud<br/>(Rust + Axum)")]
+    Colector -.->|"Visor Local<br/>(Wi-Fi AP)"| Visor["Smartphone<br/>(Productor)"]
+    
+    style Sensores fill:#e8f3eb,stroke:#1e5631,stroke-width:1.5px,color:#1e5631
+    style Colector fill:#fdf5e6,stroke:#c88a2c,stroke-width:1.5px,color:#3e2712
+    style Gateway fill:#f5ebe1,stroke:#3e2712,stroke-width:1.5px,color:#3e2712
+    style Cloud fill:#e8f3eb,stroke:#1e5631,stroke-width:1.5px,color:#1e5631
+    style Visor fill:#ffffff,stroke:#6c757d,stroke-width:1.5px,color:#212529
