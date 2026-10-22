@@ -1,11 +1,14 @@
+%%{init: {'flowchart': {'htmlLabels': false}} }%%
 flowchart LR
-    Sensores["Nodos Sensores<br/>(ESP32 en Finca)"] -->|"BLE / Wi-Fi"| Colector["Colector Local<br/>(Hub de Datos)"]
-    Colector -->|"Red Local"| Gateway["Gateway de Enlace<br/>(Módulo WAN)"]
-    Gateway -->|"Store & Forward<br/>(Asíncrono)"| Cloud[("Servidor Cloud<br/>(Rust + Axum)")]
-    Colector -.->|"Visor Local<br/>(Wi-Fi AP)"| Visor["Smartphone<br/>(Productor)"]
-    
-    style Sensores fill:#e8f3eb,stroke:#1e5631,stroke-width:1.5px,color:#1e5631
-    style Colector fill:#fdf5e6,stroke:#c88a2c,stroke-width:1.5px,color:#3e2712
-    style Gateway fill:#f5ebe1,stroke:#3e2712,stroke-width:1.5px,color:#3e2712
-    style Cloud fill:#e8f3eb,stroke:#1e5631,stroke-width:1.5px,color:#1e5631
-    style Visor fill:#ffffff,stroke:#6c757d,stroke-width:1.5px,color:#212529
+    Sensores["Nodos ESP32 (IP67)\n• Fermentación: pH Ind. + DS18B20\n• Secado: PT100 + SHT31 + HX711\n• Finca: BME280 + Suelo"] -->|"BLE / Wi-Fi 2.4 GHz\ny Bus RS-485"| Colector["Colector Local\n(Hub en Beneficio)\nMemoria Flash Local"]
+    Colector -->|"Red Local"| Gateway["Gateway de Enlace\nProtocolo Store & Forward\n(Lotes Comprimidos)"]
+    Gateway -->|"Enlace WAN\nAsíncrono"| Cloud[("Servidor Cloud Azure VM\nBackend Rust (Axum)\nPostgreSQL + Motor QR")]
+    Colector -.->|"Wi-Fi AP Local\n(Sin Internet)"| Visor["Visor Móvil Productor\nSemáforo pH y Alertas\nPreventivas en Patio"]
+    Cloud -->|"HTTPS / QR"| Pasaporte["Pasaporte Digital QR\nCooperativa · Q-Grader\nTostador Internacional"]
+
+    style Sensores fill:#e8f3eb,stroke:#1e5631,stroke-width:2px,color:#1e5631
+    style Colector fill:#fdf5e6,stroke:#c88a2c,stroke-width:2px,color:#3e2712
+    style Gateway fill:#f5ebe1,stroke:#3e2712,stroke-width:2px,color:#3e2712
+    style Cloud fill:#e8f3eb,stroke:#1e5631,stroke-width:2px,color:#1e5631
+    style Visor fill:#ffffff,stroke:#5a6268,stroke-width:2px,color:#212529
+    style Pasaporte fill:#fdf5e6,stroke:#c88a2c,stroke-width:2px,color:#3e2712

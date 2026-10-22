@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 150" width="100%" height="100%">
+  <defs>
+    <marker id="arrow-gold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#C88A2C"/>
+    </marker>
+    <marker id="arrow-coffee" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#3E2712"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8.5 5 L 0 8.5 z" fill="#1E5631"/>
+    </marker>
+  </defs>
+
+  <!-- Node 1: Finca -->
+  <rect x="8" y="14" width="235" height="122" rx="10" fill="#E8F3EB" stroke="#1E5631" stroke-width="2.2"/>
+  <rect x="20" y="24" width="211" height="24" rx="5" fill="#1E5631"/>
+  <text x="125.5" y="40.5" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">1. BENEFICIO EN FINCA</text>
+  <text x="125.5" y="66" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12" font-weight="bold" fill="#1E5631" text-anchor="middle">Nodos IoT ESP32 (IP67)</text>
+  <text x="125.5" y="86" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Fermentación: pH 6.0 → 4.2–4.5</text>
+  <text x="125.5" y="104" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Secado solar: Masa &lt; 40 °C</text>
+  <text x="125.5" y="122" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" font-weight="bold" fill="#1E5631" text-anchor="middle">• Humedad grano: 11% – 12%</text>
+
+  <!-- Arrow 1 -> 2 -->
+  <line x1="243" y1="75" x2="305" y2="75" stroke="#C88A2C" stroke-width="2.5" marker-end="url(#arrow-gold)"/>
+  <rect x="247" y="41" width="54" height="24" rx="4" fill="#FDF5E6" stroke="#C88A2C" stroke-width="1"/>
+  <text x="274" y="52" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="9" font-weight="bold" fill="#3E2712" text-anchor="middle">BLE / Wi-Fi</text>
+  <text x="274" y="62" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="8.5" fill="#5A6268" text-anchor="middle">2.4 GHz</text>
+
+  <!-- Node 2: Colector & Visor Offline -->
+  <rect x="309" y="14" width="235" height="122" rx="10" fill="#FDF5E6" stroke="#C88A2C" stroke-width="2.2"/>
+  <rect x="321" y="24" width="211" height="24" rx="5" fill="#C88A2C"/>
+  <text x="426.5" y="40.5" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">2. CONTROL OFFLINE-FIRST</text>
+  <text x="426.5" y="66" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12" font-weight="bold" fill="#3E2712" text-anchor="middle">Colector Local + Visor Móvil</text>
+  <text x="426.5" y="86" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Semáforo preventivo en patio</text>
+  <text x="426.5" y="104" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Sin internet ni saldo celular</text>
+  <text x="426.5" y="122" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" font-weight="bold" fill="#3E2712" text-anchor="middle">• Cola asíncrona Store &amp; Forward</text>
+
+  <!-- Arrow 2 -> 3 -->
+  <line x1="544" y1="75" x2="606" y2="75" stroke="#3E2712" stroke-width="2.5" marker-end="url(#arrow-coffee)"/>
+  <rect x="548" y="41" width="54" height="24" rx="4" fill="#F5EBE1" stroke="#3E2712" stroke-width="1"/>
+  <text x="575" y="52" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="9" font-weight="bold" fill="#3E2712" text-anchor="middle">Lotes Sync</text>
+  <text x="575" y="62" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="8.5" fill="#5A6268" text-anchor="middle">Azure VM</text>
+
+  <!-- Node 3: Cooperativa & Q-Grader -->
+  <rect x="610" y="14" width="235" height="122" rx="10" fill="#F5EBE1" stroke="#3E2712" stroke-width="2.2"/>
+  <rect x="622" y="24" width="211" height="24" rx="5" fill="#3E2712"/>
+  <text x="727.5" y="40.5" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12.5" font-weight="bold" fill="#FFFFFF" text-anchor="middle">3. ACOPIO Y CERTIFICACIÓN</text>
+  <text x="727.5" y="66" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12" font-weight="bold" fill="#3E2712" text-anchor="middle">Cooperativa · Q-Grader · EUDR</text>
+  <text x="727.5" y="86" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Catación oficial SCA (≥ 80 pts)</text>
+  <text x="727.5" y="104" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Polígono cero deforestación UE</text>
+  <text x="727.5" y="122" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" font-weight="bold" fill="#3E2712" text-anchor="middle">• Alianza país con CONATRADEC</text>
+
+  <!-- Arrow 3 -> 4 -->
+  <line x1="845" y1="75" x2="907" y2="75" stroke="#1E5631" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+  <rect x="849" y="41" width="54" height="24" rx="4" fill="#E8F3EB" stroke="#1E5631" stroke-width="1"/>
+  <text x="876" y="52" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="9" font-weight="bold" fill="#1E5631" text-anchor="middle">SHA-256</text>
+  <text x="876" y="62" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="8.5" fill="#5A6268" text-anchor="middle">Saco 69 kg</text>
+
+  <!-- Node 4: Mercado Internacional -->
+  <rect x="911" y="14" width="241" height="122" rx="10" fill="#E8F3EB" stroke="#1E5631" stroke-width="2.2"/>
+  <rect x="923" y="24" width="217" height="24" rx="5" fill="#1E5631"/>
+  <text x="1031.5" y="40.5" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12.5" font-weight="bold" fill="#F5EBE1" text-anchor="middle">4. MERCADO GLOBAL (QR)</text>
+  <text x="1031.5" y="66" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="12" font-weight="bold" fill="#1E5631" text-anchor="middle">Pasaporte Digital en Empaque</text>
+  <text x="1031.5" y="86" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Escaneo directo por tostadores</text>
+  <text x="1031.5" y="104" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" fill="#212529" text-anchor="middle">• Evidencia científica inalterable</text>
+  <text x="1031.5" y="122" font-family="Liberation Sans, Noto Sans, sans-serif" font-size="11" font-weight="bold" fill="#C88A2C" text-anchor="middle">• Defensa de precio (US$ 140/lb)</text>
+</svg>

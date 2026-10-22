@@ -1,0 +1,10 @@
+%%{init: {'flowchart': {'htmlLabels': false}} }%%
+flowchart LR
+    Finca["1. Beneficio en Finca\nNodos ESP32 IP67\n(pH 4.2-4.5 · Secado <40°C)"] -->|"BLE / Wi-Fi 2.4 GHz\n(Sin Internet)"| Colector["2. Colector Local\nVisor Móvil en Patio &\nCola Store & Forward"]
+    Colector -->|"Sincronización\nAsíncrona"| Coop["3. Acopio & Q-Grader\nConsolidación Cooperativa,\nPuntaje SCA y Polígono EUDR"]
+    Coop -->|"Hash SHA-256\nImpresión Térmica"| Mercado["4. Mercado Especialidad\nPasaporte QR en Saco GrainPro\n(Hasta US$ 140/lb · 19+ Países)"]
+
+    style Finca fill:#e8f3eb,stroke:#1e5631,stroke-width:2px,color:#1e5631
+    style Colector fill:#fdf5e6,stroke:#c88a2c,stroke-width:2px,color:#3e2712
+    style Coop fill:#f5ebe1,stroke:#3e2712,stroke-width:2px,color:#3e2712
+    style Mercado fill:#e8f3eb,stroke:#1e5631,stroke-width:2px,color:#1e5631
