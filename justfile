@@ -9,3 +9,9 @@ compile:
 # Watch for file changes and recompile automatically
 watch:
     typst watch slides/main.typ slides/main.pdf
+
+# Export slides as images for visual inspection
+preview:
+    mkdir -p preview
+    rm -f preview/*.png
+    typst compile --format png slides/main.typ preview/slide-{0p}.png
