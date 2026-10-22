@@ -29,12 +29,12 @@ En zonas rurales cafetaleras montañosas la conectividad es inestable, de baja v
 
 El flujo de datos se estructura en 4 capas desacopladas:
 
-```
-[ Nodos Sensores ] ──(Red Local: BLE / Wi-Fi)──> [ Colector Local (Hub) ] ──> [ Gateway de Enlace ] ──(Store & Forward)──> [ Servidor Cloud (Azure) ]
-                                                            │
-                                                     (Visor Local)
-                                                            ▼
-                                                [ Smartphone / Pantalla Productor ]
+```mermaid
+flowchart LR
+    Sensores["Nodos Sensores\n(ESP32 en Finca)"] -->|"BLE / Wi-Fi"| Colector["Colector Local\n(Hub de Datos)"]
+    Colector -->|"Red Local"| Gateway["Gateway de Enlace\n(Módulo WAN)"]
+    Gateway -->|"Store & Forward\n(Asíncrono)"| Cloud[("Servidor Cloud\n(Azure VM)")]
+    Colector -.->|"Visor Local\n(Solo Lectura)"| Visor["Smartphone / Pantalla\n(Productor)"]
 ```
 
 ### 1.1. Nodos Sensores en Campo (Sensor Nodes)
@@ -118,7 +118,7 @@ flowchart TD
     subgraph ServidorCentral ["3. Servidor Centralizado (Azure Cloud VM)"]
         API["Backend API & Validador de Paquetes\n(Node.js / Python FastAPI)"]
         BD[("Base de Datos Relacional\nHistorial de Lotes y Telemetría")]
-        QRService["Servicio de Pasaporte QR\nFichas de Trazabilidad")]
+        QRService["Servicio de Pasaporte QR\nFichas de Trazabilidad"]
         
         Gateway -. "Envío por lotes asíncrono" .-> API
         API <--> BD
