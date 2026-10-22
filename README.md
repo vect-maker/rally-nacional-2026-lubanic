@@ -16,5 +16,6 @@ just preview   # Export slides as images for visual inspection
 ## Documentation
 
 - [Definición de Usuarios, Expectativas y Clientes de Acceso](docs/users-and-architecture.md)
+- [Arquitectura Frontend Unificada y Flujos de Navegación](docs/frontend-flows.md)
 - [Nota Técnica y Regulatoria: Justificación del Descarte de LoRa](docs/nota-regulatoria-lora.md)
 

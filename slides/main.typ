@@ -354,7 +354,7 @@ Equipo: Lubanic (Rally Nicaragua Innova 2026)
           columns: (1fr, auto),
           align: (left + horizon, right + horizon),
           text(size: 13.5pt, weight: "bold", fill: c-coffee)[Lote Demo: #text(fill: c-gold)[#raw("#DIP-2026-042")]],
-          rect(fill: c-green, radius: 4pt, inset: (x: 5pt, y: 2.5pt), text(fill: white, size: 8.5pt, weight: "bold")[SCA 88.5])
+          rect(fill: c-green, radius: 4pt, inset: (x: 5pt, y: 2.5pt), text(fill: white, size: 8.5pt, weight: "bold")[SCA 88.5 · Q-Grader Oficial])
         )
         #v(3pt)
         #line(length: 100%, stroke: 0.5pt + c-gold.lighten(50%))
